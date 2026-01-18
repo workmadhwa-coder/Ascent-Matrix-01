@@ -1,3 +1,66 @@
+VITE_API_BASE_URL=http://localhost:3000
+VITE_BACKEND_URL=http://localhost:3000
+
+VITE_FIREBASE_API_KEY=AIzaSyAiuLMWJxbrM_-Xj1p76yQI0wY12JgeA5A
+VITE_FIREBASE_AUTH_DOMAIN=ascentmatrix-1ba76.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=ascentmatrix-1ba76
+VITE_FIREBASE_STORAGE_BUCKET=ascentmatrix-1ba76.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=929821956760
+VITE_FIREBASE_APP_ID=1:929821956760:web:b72eabfdfbf530c1364eed
+VITE_FIREBASE_MEASUREMENT_ID=G-9LZGC3VWGZ
+
+
+# =============================================
+# FIREBASE CONFIGURATION
+# =============================================
+# Firebase service account JSON (as a stringified JSON object)
+# Create this from Firebase Console > Project Settings > Service Accounts
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account","project_id":"ascentmatrix-1ba76","private_key_id":"0080b7274ce7a0133a4756d04235140176b706b2","private_key":"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDrwoDOsJEFxx0R\\nE/QHEqqkl1PJT2C2eBHLz+4bYaNXtQJuwr6PvahyjiYCw46X6WUUXObxLmiy6LPd\\noqqlLLaLPklH5uaiWRGNcqcwTgZLw5KNGZkS0KMsMmcVLj9zxy3haIYDP0uWDLRn\\nb7o3Y3hDlsdgXFNeoqIbamiXF0g4XHD7uJf9eTXO8eYrWHXbjwkVpXnDpneNLIKM\\nj/PGDWszEnm47gc04VH0E03CtJk+HTIuNU3ei+2dWBJgvtfLwC27GgZnIDSNLyb5\\nY+MN9CC0W8fJ1Q10NMBmDjE4Dtyi4vRyVT2GPdEuVHmGHRkP6sObmOLsIZhY6lf0\\ng5IhDQXVAgMBAAECggEAAmrcJ0JoOkbwZVxvBCOM3GMw2L+Xnkdc51oadu1pX1zb\\nyYb1rUOklogem6ilrakXAD5zn8V6DVuVfJBOb6MlvAfHeJVFiCShqXGjhTtHlT9M\\nIWZBy4+YHLvnkrAGtok0TztjJGVhwQggUW8z2Z2LfiXtpW9M64t/XgiZSfNTKkDD\\nXenO38bb1NfyKT58fZI5DIjqCl2He9ANmQcTVEN9oAvYzx4dkpr795GQryuhQQaM\\nCdIzzOQoW0Xq/Bswd9J/zQLBnCV7jkpLi9NEexBzYFEiBdiua23zluUjEO++0r59\\nSZrD8Odvvw69Bmsg/7gWon1ns3uCh5OE3JQVjK58AQKBgQD5LBRp33IGmwYbEHCW\\nHUAwpmUZPLnydbpo1m6v2pYZU6Ls/kY08+KsD1wXMRHdemNnmAKUEixDd5wiMYdt\\nMCNYoE/ld9IZ+DF9WyttV0tLsSDZZmLHBfNb9QCZVLM99AAA1II7af0ZUfI0nmbh\\n1lXCn68W57vjRzouab0yJ130SQKBgQDyOFYqd0XPUPVQvzsF0RV3YlAoa6jElJMW\\nQIpFsgLKbhzwK9O/sYth349/bnfntJA+QYj3GJSFyvaBsvWsghntrBnkZoIG2+eh\\nMPVLrq+Fe2rNQOR1oGZWZ6It9JKRi1a/xWxS/4mdAYhVOfBXqe4DDKj2WIHkp8PO\\nE461BFZtLQKBgExGoCEg06kN/7p9N9ncLnA2H7CwFEQSofPB4LRYd6ZdIfzmgdtn\\n5TXCpfA7hzqDYrato+xr+7zTeqpE+y4DlG5m9M5L9bcZcRzssciQ9m2/VUz3uLkw\\nKyU1RO+rLAuFDBM0+oDxmxcLLNfKvbfYgvxHIbQjUDLs9PSMTexyfKJxAoGBAIdk\\nmD2KiBoXXdix2/MnaUFfUgEWFLM1fXZNwzysAUVYAZL6XJVlT8z4owSPIjUBSDOU\\nfFPqiHK0/c+H0i2IV6fzsFFsPzhISZRfgm24imIpl4x9vnZFn46ixRO9BwSWB3qQ\\nhzlpn2mExskk5sSJtwI7XGK/HHRMlnWllvp2Hz1NAoGBAKJNNeMgzCU/vQhxFYQm\\n0JuiHcRNwoQ4c0kkFh8ubIt1C077iBkGjvTCJ2z4XXnZBZUWb/bTfdh9lMrZLvPO\\n+AD/RMcYHP2af2lDLnlItKGxEJ2wW0ucpLjV7NgJ4rKye0f87FoNAZ5b7y9FtCZ1\\nmany1f9JKr2NNiUNnyWwgKsV\\n-----END PRIVATE KEY-----\\n","client_email":"firebase-adminsdk-fbsvc@ascentmatrix-1ba76.iam.gserviceaccount.com","client_id":"113452061868110480472","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40ascentmatrix-1ba76.iam.gserviceaccount.com","universe_domain":"googleapis.com"}
+
+# =============================================
+# CLOUDINARY CONFIGURATION
+# =============================================
+# Cloud Name - Your Cloudinary account cloud name
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+
+# API Key - Your Cloudinary API key (public)
+CLOUDINARY_API_KEY=your_api_key
+
+# API Secret - Your Cloudinary API secret (KEEP PRIVATE - NEVER expose in frontend)
+# Get this from Cloudinary Dashboard > Settings > API Keys
+CLOUDINARY_API_SECRET=your_api_secret
+
+# =============================================
+# EMAIL CONFIGURATION (Gmail)
+# =============================================
+# Gmail account email address for sending tickets
+MAIL_USER=your-email@gmail.com
+
+# Gmail App Password (use App Password, not your actual Gmail password)
+# Generate from: https://myaccount.google.com/apppasswords
+MAIL_PASS=your-app-password
+
+# =============================================
+# RAZORPAY CONFIGURATION
+# =============================================
+# Razorpay API Key (public)
+RAZORPAY_API_KEY=your_razorpay_api_key
+
+# Razorpay API Secret (KEEP PRIVATE)
+RAZORPAY_API_SECRET=your_razorpay_api_secret
+
+# =============================================
+# SERVER CONFIGURATION
+# =============================================
+# Port for the backend server
+PORT=3001
+
+# Environment (development, staging, production)
+NODE_ENV=development
+
+
+
+
 PORT=3000
 
 RAZORPAY_KEY_ID=rzp_test_Ry9JJCHZpNjli0
@@ -14,24 +77,8 @@ VITE_API_BASE_URL=http://localhost:3000
 ADMIN_EMAIL=admin@ascentmatrix.com
 ADMIN_PASSWORD_RAW=ADMIN@2026
 
-FIREBASE_SERVICE_ACCOUNT={"type":"service_account","project_id":"ascentmatrix-1ba76","private_key_id":"ea911bfa328fd72d83f11ecb5edf183d3c8afcb9","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDRLeoOrnN14MON\nN25tBn2agkjsY7H1SLJqj3Vf8iMVEbFtmErUzWQrE4uIYxT2TGhWsF96GPef3aMS\nJlvJp7gRuo2sIOx0T4laiGTJZ8rW6mSin588UphSA5G9Nns2U6i6mzGa4N72KTC2\n0joQVuS/K6Av11SxopMxgurhrAMhYceSDtjItknYJTKQDLvOzyG0zm+A9IbXt3dt\njuqtGG6g7Q+4ydE2Qvzp/L4sNAcOH8Y9v4+2urCUS9xOU1MtI3Gy8ZUeV2sPx5+Z\n8wxgsbEQhh7KJ3CYrP0vVQ65GKJG3PpI9OHgy4sY9VfBRC6Q7Tvpm5NDFrUk7448\ndSeOIcG3AgMBAAECggEAPXzqJtun6/ggc4PeTWURidgPWJFrr8bpT0KRRZ1XK6vS\nRH12Tbx8W984bmR1tnq6VvUsc6cgLxmHBGBLLelDxc5ZM8ZPy1bP8NFUExIUAX3Q\nDC+wrpo21TDgZ8a6jDsmR4g0GitMzv5HqA3+7GumfP11bmq1Jiw8aVrq8WBPYUGl\nNO2IMtgVO3DcneElH/0H9dlzmnotJ2qMYpHTNCBy5w2IdBfKlfqpQN3BTSQdd2cp\n54T9fJltbtduqVmVc8U6VMGUCB40Cs5ufuLKWEIkr6X1x9IpHAeajDQz6bLpkwS0\n//rEX+QntBsJcSr42vy9/OHk3Fkf4yQIW1Kz+rwpNQKBgQDwLkN7EFJ93iZc+e58\nXce7NZ1rd6nUYTysgsxXnfnv1yMm3qVnvsLilzvTmnmCxNvW17q50YhF+iIxesLZ\nnd7zP0AYhaCyOyveOIRlAIQB4orKJTnoG9ks+2RNK+2QfNQiZq1zaOLyzII/fpkY\nGU5ULiB51LD5Tb9Nzw/PnLRM5QKBgQDe9O4pLa3BBQsy3PhQsD9uzcniAvS8yyVX\npIh+Gnqa/lOPdsyjRpFyuCIFa6GKCjqOTxPOHscpt3I5N7fMeD/IIZw6RSNXdR3B\nMLmy2Y65x7XFnUSI/ydFmrmjwLsOM8FxYsAkK1GdO17UMWoBjtyBWRRk+xrbAXRI\nfSRlzdNGawKBgQCRfyUn5tJiJ3JL/qfnNRRqp2cOlDYQTztnMfFB3pRrI4PK5zOC\nLoB2rbDzVe/oNQMMGjGmoXURFx8hpEFnfQhziMx2TnTzo37GpqwlV3OghLEZFgYH\nQt+ELWIskcDfN492q4bFlDNvbE420qVBgQr/WdYYl60ByYRrSVVFqqNatQKBgAdr\ndUWPjJnA1jeSHP1qcCH63T4VRRnHVO3OvvAbZ3si/ZrnpDXG0m5T7GXryAt0/a/g\nt9MDOTONNFLtJMO8OLsrSyyxQlTVw/C682MdVF+gYs85xZ8dhqwNUyI89rypQkXI\nuIY7ntKxuB0tq85zd6kiUshtht5E9R64c26j4+UTAoGBALjFahaXsd1NM9g4KP7D\nyBVmezTnvQwIek0DbnKGOX8qUAvTCSzq2h+frhc8hCMFGxKifX0gRGfb5C9R9FPz\nk68tQcD7sU1OiOOWLYM8rKTslGyKV7jzTHV0TR+6TChF/kLTrfXK4qS5krqNnH9F\nquo9JFpZPM3urQuIvx9Fy9iA\n-----END PRIVATE KEY-----\n","client_email":"firebase-adminsdk-fbsvc@ascentmatrix-1ba76.iam.gserviceaccount.com","client_id":"113452061868110480472","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40ascentmatrix-1ba76.iam.gserviceaccount.com","universe_domain":"googleapis.com"}
+
 
 CLOUDINARY_CLOUD_NAME=dgabaplay
 CLOUDINARY_API_KEY=338371783368386
 CLOUDINARY_API_SECRET=SNdWnRgAPOk-QTvX8c-jS4azh8w
-
-
-
-
-
-VITE_API_BASE_URL=http://localhost:3000
-VITE_BACKEND_URL=http://localhost:3000
-
-VITE_FIREBASE_API_KEY=AIzaSyAiuLMWJxbrM_-Xj1p76yQI0wY12JgeA5A
-VITE_FIREBASE_AUTH_DOMAIN=ascentmatrix-1ba76.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=ascentmatrix-1ba76
-VITE_FIREBASE_STORAGE_BUCKET=ascentmatrix-1ba76.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=929821956760
-VITE_FIREBASE_APP_ID=1:929821956760:web:b72eabfdfbf530c1364eed
-VITE_FIREBASE_MEASUREMENT_ID=G-9LZGC3VWGZ
-
