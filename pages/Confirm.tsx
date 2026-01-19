@@ -28,7 +28,7 @@ const Confirm = () => {
   const verifyAndLoad = async () => {
     try {
       // Send both the signature details and the registration ID to the backend
-      const verifyRes = await fetch('http://localhost:3000/api/payment/verify', {
+      const verifyRes = await fetch('https://backend-3bat.onrender.com/api/payment/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
