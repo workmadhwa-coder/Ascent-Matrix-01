@@ -171,7 +171,7 @@ const Register = () => {
         formDataToSend.append('totalAmount', calculateTotal().toString());
         formDataToSend.append('ticketType', 'Event + Ideathon');
 
-        const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3000';
+        const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
         console.log('Register API →', `${backendUrl}/api/ticket/register`);
         
         const response = await fetch(`${backendUrl}/api/ticket/register`, {
