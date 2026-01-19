@@ -5,10 +5,10 @@ if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
   throw new Error('FIREBASE_SERVICE_ACCOUNT is missing in .env');
 }
 
-// Parse service account
+// Parse service account ONLY ONCE
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-// 🔥 CRITICAL FIX: restore newlines in private_key
+// 🔥 Restore newlines in private_key
 serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
 
 if (!admin.apps.length) {

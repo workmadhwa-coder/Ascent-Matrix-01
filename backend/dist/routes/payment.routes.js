@@ -5,14 +5,7 @@ const payment_controller_js_1 = require("../controllers/payment.controller.js");
 const ticket_controller_js_1 = require("../controllers/ticket.controller.js");
 const admin_controller_js_1 = require("../controllers/admin.controller.js");
 const volunteer_controller_js_1 = require("../controllers/volunteer.controller.js");
-const registration_controller_js_1 = require("../controllers/registration.controller.js");
-const sponsorship_controller_js_1 = require("../controllers/sponsorship.controller.js");
 const router = (0, express_1.Router)();
-// Registration
-router.post('/registration', registration_controller_js_1.createRegistration);
-router.get('/registration/:id', registration_controller_js_1.getRegistration);
-// Sponsorship
-router.post('/sponsorship', sponsorship_controller_js_1.createSponsorship);
 // Payment & Tickets
 router.post('/payment/create-order', payment_controller_js_1.createOrder);
 router.post('/payment/verify', payment_controller_js_1.verifyPayment);

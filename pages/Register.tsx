@@ -5,9 +5,8 @@ import { RegistrationData } from '../types';
 
 const { useNavigate } = ReactRouterDOM as any;
 
-// Updated Pricing as per requirements
-const PRICE_NORMAL = 999;
-const PRICE_IDEATHON = 1799;
+const BASE_PRICE = 2000;
+const EXTRA_PERSON_PRICE = 750;
 
 const STALL_OPTIONS = {
   'None': 0,
@@ -16,13 +15,16 @@ const STALL_OPTIONS = {
 };
 
 const ORG_TYPES = ["Startup", "MSME", "Corporate / MNC", "Investor / VC / Angel", "Bank / Financial Institution", "Academia / Research", "Government / PSU", "Incubator / Accelerator", "Student", "Other"];
+
 const DOMAINS = ["AI / ML", "Semiconductor", "Robotics / Electronics", "MedTech / HealthTech", "Clean Energy / ClimateTech", "SpaceTech / DefenceTech", "AgriTech", "FinTech", "Manufacturing / Industry 4.0", "Cybersecurity", "Biotech / Life Sciences", "Smart Mobility", "Quantum", "Bio informatics", "Legal / IP", "Other"];
 const ROLES = ["Founder / Co-Founder", "Innovator", "Investor", "Mentor", "Banker / Financial Facilitator", "Industry Leader", "Academia / Researcher", "Policy / Government", "Student / Aspiring Entrepreneur"];
+
 const PURPOSES = ["Investment / Funding Opportunities", "Mentorship & Expert Guidance", "Bank & Financial Support", "Industry Partnerships", "Policy & Government Connect", "Market Access / Pilots", "Networking & Ecosystem Exposure"];
 
 const Register = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(0); // Start at 0 for card selection
+
+  const [step, setStep] = useState(0);
   const [isIdeathon, setIsIdeathon] = useState(false);
   const [showUpsell, setShowUpsell] = useState(false);
   const [attendeeCount, setAttendeeCount] = useState(1);
@@ -49,36 +51,47 @@ const Register = () => {
     ecosystemRole: '',
     purposes: [] as string[],
     qucInterest: '',
-    // Extra Ideathon Fields
     problemStatement: '',
     solution: '',
     ndaAccepted: false
   });
 
   const calculateTotal = () => {
-    const base = isIdeathon ? PRICE_IDEATHON : PRICE_NORMAL;
-    let total = base * attendeeCount;
+    const additionalCount = Math.max(0, attendeeCount - 2);
+    let total = BASE_PRICE + (additionalCount * EXTRA_PERSON_PRICE);
     total += STALL_OPTIONS[stallType];
     return total;
   };
+
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
 
   const checkValidation = () => {
     const newErrors: string[] = [];
     if (step === 1) {
       if (!formData.fullName) newErrors.push('fullName');
       if (!formData.gender) newErrors.push('gender');
-      if (formData.phone.length < 10) newErrors.push('phone');
-      if (!formData.email.includes('@')) newErrors.push('email');
+      if (!validatePhone(formData.phone)) newErrors.push('phone');
+      if (!validateEmail(formData.email)) newErrors.push('email');
       if (!formData.city) newErrors.push('city');
       if (!formData.state) newErrors.push('state');
     } else if (step === 2) {
       if (!formData.organization) newErrors.push('organization');
+      if (!formData.designation) newErrors.push('designation');
       if (!formData.orgType) newErrors.push('orgType');
     } else if (step === 5.5) {
       if (!formData.problemStatement) newErrors.push('problemStatement');
       if (!formData.solution) newErrors.push('solution');
       if (!pdfFile) newErrors.push('pdf');
       if (!formData.ndaAccepted) newErrors.push('ndaAccepted');
+    } else if (step === 3) {
+      if (formData.domains.length === 0) newErrors.push('domains');
+      if (formData.domains.includes('Other') && !formData.domainsOther) newErrors.push('domainsOther');
+    } else if (step === 4) {
+      if (!formData.ecosystemRole) newErrors.push('ecosystemRole');
+    } else if (step === 5) {
+      if (formData.purposes.length === 0) newErrors.push('purposes');
+      if (!formData.qucInterest) newErrors.push('qucInterest');
     }
 
     setErrors(newErrors);
@@ -89,9 +102,9 @@ const Register = () => {
     if (checkValidation()) {
       if (step === 5) {
         if (!isIdeathon) {
-          setShowUpsell(true); // Show the "Part of Ideathon?" small page/modal
+          setShowUpsell(true);
         } else {
-          setStep(5.5); // Go to extra questions
+          setStep(5.5);
         }
       } else if (step === 5.5) {
         setStep(6);
@@ -103,17 +116,40 @@ const Register = () => {
   };
 
   const handleProceedToPayment = async () => {
+    console.log('Proceed to Payment button clicked');
     setIsSaving(true);
-    const registrationData: any = {
-      ...formData,
+
+    const registrationData: RegistrationData = {
       id: registrationIdRef.current,
+      fullName: formData.fullName,
+      gender: formData.gender,
+      phone: formData.phone,
+      email: formData.email,
+      city: formData.city,
+      state: formData.state,
+      organization: formData.organization,
+      designation: formData.designation,
+      orgType: formData.orgType,
+      orgTypeOther: formData.orgTypeOther,
+      domains: formData.domains,
+      domainsOther: formData.domainsOther,
+      ecosystemRole: formData.ecosystemRole,
+      purposes: formData.purposes,
+      qucInterest: formData.qucInterest,
+      stallType,
+      stallPrice: STALL_OPTIONS[stallType],
+      ticketCount: attendeeCount,
       totalAmount: calculateTotal(),
-      ticketType: isIdeathon ? 'Event + Ideathon' : 'Normal Event'
+      paymentStatus: 'PENDING',
+      registrationDate: new Date().toISOString(),
+      checkedIn: false,
+      ticketType: isIdeathon ? 'Event + Ideathon' : 'Summit Pass'
     };
+
     try {
-      // If Ideathon with PDF, upload to backend first
       if (isIdeathon && pdfFile) {
         const formDataToSend = new FormData();
+        formDataToSend.append('registrationId', registrationIdRef.current);
         formDataToSend.append('pdf', pdfFile);
         formDataToSend.append('fullName', formData.fullName);
         formDataToSend.append('email', formData.email);
@@ -159,7 +195,8 @@ const Register = () => {
         console.log('PDF uploaded successfully:', registrationData.pdfUrl);
       }
 
-      await saveRegistration(registrationData);
+      // Backend (/api/ticket/register) already saves to Firestore - do not duplicate
+      // await saveRegistration(registrationData);
       navigate('/payment', { state: { registrationId: registrationIdRef.current } });
     } catch (err) {
       console.error('Registration error:', err);
@@ -189,11 +226,11 @@ const Register = () => {
     errors.includes(field) ? 'border-red-500 animate-shake bg-red-500/5' : 'border-zinc-800 focus:border-purple-500'
   }`;
 
-  const renderStep = () => {
-    const currentTotal = calculateTotal();
+  const currentTotal = calculateTotal();
 
+  const renderStep = () => {
     switch (step) {
-      case 0: // NEW SELECTION CARDS
+      case 0:
         return (
           <div className="space-y-8 animate-fade-in-up">
             <h2 className="text-3xl font-black text-white uppercase italic text-center mb-8">Choose Your Plan</h2>
@@ -238,9 +275,48 @@ const Register = () => {
               <input type="text" placeholder="City" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className={inputClass('city')} />
               <input type="text" placeholder="State" value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} className={inputClass('state')} />
             </div>
-            <div className="flex justify-between pt-10 border-t border-zinc-800">
-              <button onClick={() => setStep(0)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
-              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 transition-all">Next Step</button>
+
+            <div className="pt-6 border-t border-zinc-800">
+              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-4">Attendees (Base Pass includes 2)</p>
+              <div className="flex items-center gap-6 p-4 bg-zinc-900 rounded-2xl border border-zinc-800 w-fit mb-4">
+                <button type="button" onClick={() => setAttendeeCount(Math.max(2, attendeeCount - 1))} className="w-10 h-10 rounded-lg bg-zinc-800 text-white font-bold hover:bg-zinc-700">-</button>
+                <span className="text-xl font-bold text-white w-8 text-center">{attendeeCount}</span>
+                <button type="button" onClick={() => setAttendeeCount(attendeeCount + 1)} className="w-10 h-10 rounded-lg bg-zinc-800 text-white font-bold hover:bg-zinc-700">+</button>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-4">Exhibition Stall</p>
+              <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
+                {(Object.keys(STALL_OPTIONS) as Array<keyof typeof STALL_OPTIONS>).map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => setStallType(option)}
+                    className={`p-6 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-32 ${
+                      stallType === option 
+                      ? 'border-purple-500 bg-purple-500/10' 
+                      : 'border-zinc-800 bg-zinc-900 hover:border-zinc-600'
+                    }`}
+                  >
+                    <span className="text-white font-black uppercase text-sm">{option === 'None' ? 'No Stall' : option}</span>
+                    <span className="text-purple-400 font-bold text-xs">{option === 'None' ? '-' : `₹${STALL_OPTIONS[option].toLocaleString()}`}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 p-8 bg-zinc-900/80 rounded-[2rem] border-2 border-white/5 shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-600 to-pink-600"></div>
+              <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-6">
+                <div className="text-right w-full">
+                  <span className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1 block">Payable Total</span>
+                  <span className="text-5xl font-black text-white italic tracking-tighter">₹{currentTotal.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-10 border-t border-zinc-800">
+              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm tracking-widest hover:bg-purple-500 hover:text-white transition-all">Next Step</button>
             </div>
           </div>
         );
@@ -255,9 +331,12 @@ const Register = () => {
               <option value="">Type of Organization</option>
               {ORG_TYPES.map(t => <option key={t}>{t}</option>)}
             </select>
+            {formData.orgType === 'Other' && (
+              <input type="text" placeholder="Specify Type" value={formData.orgTypeOther} onChange={e => setFormData({...formData, orgTypeOther: e.target.value})} className={inputClass('orgTypeOther')} />
+            )}
             <div className="flex justify-between pt-10 border-t border-zinc-800">
               <button onClick={() => setStep(1)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
-              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 transition-all">Next Step</button>
+              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 hover:text-white transition-all">Next Step</button>
             </div>
           </div>
         );
@@ -266,6 +345,7 @@ const Register = () => {
         return (
           <div className="space-y-6 animate-fade-in-up">
             <h2 className="text-3xl font-black text-white uppercase italic mb-2">3. Primary Domain</h2>
+            <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-6 italic">Select up to 2 sectors</p>
             <div className={`grid grid-cols-2 md:grid-cols-3 gap-3 p-4 rounded-2xl border transition-all ${errors.includes('domains') ? 'border-red-500 bg-red-500/5 animate-shake' : 'border-transparent'}`}>
               {DOMAINS.map(d => (
                 <button key={d} onClick={() => handleDomainSelect(d)} className={`p-4 rounded-xl border text-[10px] font-black uppercase transition-all ${formData.domains.includes(d) ? 'bg-purple-600 border-purple-400 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500'}`}>
@@ -273,9 +353,12 @@ const Register = () => {
                 </button>
               ))}
             </div>
+            {formData.domains.includes('Other') && (
+              <input type="text" placeholder="Specify Domain" value={formData.domainsOther} onChange={e => setFormData({...formData, domainsOther: e.target.value})} className={inputClass('domainsOther')} />
+            )}
             <div className="flex justify-between pt-10 border-t border-zinc-800">
               <button onClick={() => setStep(2)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
-              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm">Next Step</button>
+              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 hover:text-white transition-all">Next Step</button>
             </div>
           </div>
         );
@@ -293,7 +376,7 @@ const Register = () => {
             </div>
             <div className="flex justify-between pt-10 border-t border-zinc-800">
               <button onClick={() => setStep(3)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
-              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm">Next Step</button>
+              <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 hover:text-white transition-all">Next Step</button>
             </div>
           </div>
         );
@@ -309,6 +392,16 @@ const Register = () => {
                 </button>
               ))}
             </div>
+
+            <p className="text-zinc-300 font-bold mb-4 italic mt-8">Future QUC Session Participation?</p>
+            <div className={`flex gap-4 p-4 rounded-2xl border transition-all ${errors.includes('qucInterest') ? 'border-red-500 bg-red-500/5 animate-shake' : 'border-transparent'}`}>
+              {["Yes", "No", "Maybe"].map(val => (
+                <button key={val} onClick={() => setFormData({...formData, qucInterest: val})} className={`flex-1 py-4 rounded-xl border font-black uppercase text-xs transition-all ${formData.qucInterest === val ? 'bg-green-600 border-green-400 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500'}`}>
+                  {val}
+                </button>
+              ))}
+            </div>
+
             <div className="flex justify-between pt-10 border-t border-zinc-800">
               <button onClick={() => setStep(4)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
               <button onClick={handleNext} className="bg-white text-black px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-purple-500 hover:text-white transition-all">Review Final</button>
@@ -316,7 +409,7 @@ const Register = () => {
           </div>
         );
 
-      case 5.5: // EXTRA IDEATHON QUESTIONS
+      case 5.5:
         return (
           <div className="space-y-6 animate-fade-in-up">
             <h2 className="text-3xl font-black text-purple-500 uppercase italic mb-4">Ideathon Details</h2>
@@ -373,31 +466,44 @@ const Register = () => {
                 <h4 className="text-[10px] font-black uppercase text-purple-500 mb-4 tracking-widest">Delegate Profile</h4>
                 <p className="text-white font-black text-xl italic leading-none mb-2">{formData.fullName}</p>
                 <p className="text-zinc-500 text-sm font-bold">{formData.email} | {formData.phone}</p>
-                <p className="text-zinc-500 text-xs mt-2 uppercase tracking-widest">Pass Type: {isIdeathon ? 'Event + Ideathon' : 'Event Only'}</p>
+                <p className="text-zinc-500 text-xs mt-2 uppercase tracking-widest">{formData.city}, {formData.state}</p>
+              </div>
+              <div className="p-8">
+                <h4 className="text-[10px] font-black uppercase text-purple-500 mb-4 tracking-widest">Organization & Role</h4>
+                <p className="text-white font-black text-lg italic leading-none mb-1">{formData.organization}</p>
+                <p className="text-zinc-400 text-sm font-bold">{formData.designation}</p>
               </div>
               <div className="p-8 bg-purple-600/5">
                 <h4 className="text-[10px] font-black uppercase text-pink-500 mb-4 tracking-widest">Financial Summary</h4>
-                <div className="pt-4 flex justify-between items-center">
-                  <span className="text-white font-black uppercase text-xl italic tracking-tighter">Grand Total</span>
-                  <span className="text-4xl font-black text-purple-400 italic">₹{currentTotal.toLocaleString()}</span>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm text-zinc-400 uppercase font-black"><span>Total Passes (x{attendeeCount})</span><span>₹{calculateTotal().toLocaleString()}</span></div>
+                  <div className="pt-4 border-t border-white/10 flex justify-between items-center">
+                    <span className="text-white font-black uppercase text-xl italic tracking-tighter">Grand Total</span>
+                    <span className="text-4xl font-black text-purple-400 italic">₹{calculateTotal().toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="flex justify-between pt-10">
               <button onClick={() => setStep(isIdeathon ? 5.5 : 5)} className="text-zinc-500 font-black uppercase text-sm">Edit Details</button>
-              <button onClick={handleProceedToPayment} disabled={isSaving} className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl disabled:opacity-50">
+              <button 
+                onClick={handleProceedToPayment} 
+                disabled={isSaving}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl disabled:opacity-50"
+              >
                 {isSaving ? 'Initializing...' : 'Confirm & Proceed to Pay'}
               </button>
             </div>
           </div>
         );
-      default: return null;
+
+      default:
+        return null;
     }
   };
 
   return (
     <div className="min-h-screen bg-black py-20 px-4">
-      {/* UPSELL MODAL */}
       {showUpsell && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="bg-zinc-950 border border-purple-500/30 p-8 rounded-[2rem] max-w-md w-full animate-fade-in-up shadow-2xl">

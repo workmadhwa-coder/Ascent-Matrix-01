@@ -67,7 +67,7 @@ const verifyPayment = async (req, res) => {
             });
         }
         if (!RZP_KEY_SECRET) {
-            throw new Error('Razorpay Secret Key is missing');
+            throw new Error('Razorpay Secret Key is missing in environment');
         }
         const body = `${razorpay_order_id}|${razorpay_payment_id}`;
         const expectedSignature = crypto_1.default

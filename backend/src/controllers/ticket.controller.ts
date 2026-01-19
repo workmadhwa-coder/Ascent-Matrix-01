@@ -296,6 +296,7 @@ export const registerUser = async (req: any, res: any) => {
       ticketType,
       problemStatement,
       solution,
+      registrationId,
     } = req.body;
 
     // Validate required fields
@@ -304,6 +305,15 @@ export const registerUser = async (req: any, res: any) => {
       return res.status(400).json({
         status: 'error',
         message: 'Full name, email, and phone are required',
+      });
+    }
+
+    // Validate registrationId from frontend
+    if (!registrationId) {
+      console.error('❌ Missing registrationId from frontend');
+      return res.status(400).json({
+        status: 'error',
+        message: 'registrationId is required',
       });
     }
 
@@ -316,13 +326,7 @@ export const registerUser = async (req: any, res: any) => {
 
     console.log('✓ Cloudinary Public ID:', pdfPublicId);
     console.log('✓ Cloudinary URL:', pdfUrl);
-
-    // Generate registration ID
-    const registrationId = `AM26-${Math.floor(Math.random() * 1000000)
-      .toString()
-      .padStart(6, '0')}`;
-
-    console.log('✓ Generated ID:', registrationId);
+    console.log('✓ Using Registration ID from frontend:', registrationId);
 
     // Prepare registration data
     let parsedDomains = [];

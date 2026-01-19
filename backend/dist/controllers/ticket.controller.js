@@ -3,12 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.downloadTicket = exports.generateAndEmail = void 0;
+exports.getSignedPdfUrl = exports.registerUser = exports.downloadTicket = exports.generateAndEmail = void 0;
 const pdfkit_1 = __importDefault(require("pdfkit"));
 const qrcode_1 = __importDefault(require("qrcode"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const buffer_1 = require("buffer");
 const node_fetch_1 = __importDefault(require("node-fetch"));
+const firebase_js_1 = require("../config/firebase.js");
+const cloudinary_js_1 = __importDefault(require("../config/cloudinary.js"));
 // ============================================
 // GENERATE PDF + SEND EMAIL
 // ============================================
@@ -197,3 +199,169 @@ const downloadTicket = async (req, res) => {
     }
 };
 exports.downloadTicket = downloadTicket;
+// ============================================
+// REGISTER USER WITH PDF UPLOAD
+// ============================================
+const registerUser = async (req, res) => {
+    try {
+        console.log('=== REGISTRATION REQUEST ===');
+        console.log('Files received:', req.file);
+        console.log('Body received:', JSON.stringify(req.body, null, 2));
+        // Validate PDF upload
+        if (!req.file) {
+            console.error('❌ ERROR: No PDF file uploaded');
+            return res.status(400).json({
+                status: 'error',
+                message: 'PDF file is required',
+            });
+        }
+        console.log('✓ PDF file received:', req.file.originalname, 'Size:', req.file.size);
+        // Extract registration data from form
+        const { fullName, gender, phone, email, city, state, organization, designation, orgType, orgTypeOther, domains, domainsOther, ecosystemRole, purposes, qucInterest, stallType, stallPrice, ticketCount, totalAmount, paymentId, ticketType, problemStatement, solution, } = req.body;
+        // Validate required fields
+        if (!fullName || !email || !phone) {
+            console.error('❌ Missing required fields - fullName:', fullName, 'email:', email, 'phone:', phone);
+            return res.status(400).json({
+                status: 'error',
+                message: 'Full name, email, and phone are required',
+            });
+        }
+        // Get Cloudinary upload data from uploaded file
+        console.log('📁 File object keys:', Object.keys(req.file));
+        console.log('📁 File object:', req.file);
+        const pdfPublicId = req.file?.public_id || req.file?.filename || null;
+        const pdfUrl = req.file.path;
+        console.log('✓ Cloudinary Public ID:', pdfPublicId);
+        console.log('✓ Cloudinary URL:', pdfUrl);
+        // Generate registration ID
+        const registrationId = `AM26-${Math.floor(Math.random() * 1000000)
+            .toString()
+            .padStart(6, '0')}`;
+        console.log('✓ Generated ID:', registrationId);
+        // Prepare registration data
+        let parsedDomains = [];
+        let parsedPurposes = [];
+        try {
+            if (domains) {
+                parsedDomains = typeof domains === 'string' ? JSON.parse(domains) : domains;
+            }
+        }
+        catch (e) {
+            console.warn('⚠️ Failed to parse domains:', e);
+            parsedDomains = [];
+        }
+        try {
+            if (purposes) {
+                parsedPurposes = typeof purposes === 'string' ? JSON.parse(purposes) : purposes;
+            }
+        }
+        catch (e) {
+            console.warn('⚠️ Failed to parse purposes:', e);
+            parsedPurposes = [];
+        }
+        console.log('✓ Registration data prepared:', {
+            id: registrationId,
+            fullName,
+            email,
+            phone,
+            ticketType,
+            stallType,
+            totalAmount,
+            problemStatement: problemStatement ? 'provided' : 'not provided',
+        });
+        // Create registration data object
+        const registrationData = {
+            id: registrationId,
+            fullName,
+            gender: gender || '',
+            phone,
+            email,
+            city: city || '',
+            state: state || '',
+            organization: organization || '',
+            designation: designation || '',
+            orgType: orgType || '',
+            orgTypeOther: orgTypeOther || '',
+            domains: parsedDomains,
+            domainsOther: domainsOther || '',
+            ecosystemRole: ecosystemRole || '',
+            purposes: parsedPurposes,
+            qucInterest: qucInterest || '',
+            stallType: stallType || '',
+            stallPrice: stallPrice || 0,
+            ticketCount: ticketCount || 1,
+            totalAmount: Number(totalAmount) || 0,
+            paymentId: paymentId || '',
+            ticketType: ticketType || '',
+            problemStatement: problemStatement || '',
+            solution: solution || '',
+            pdfUrl: pdfUrl,
+            paymentStatus: 'PENDING',
+            createdAt: new Date(),
+        };
+        // Only add pdfPublicId if it exists (avoid undefined values in Firestore)
+        if (pdfPublicId) {
+            registrationData.pdfPublicId = pdfPublicId;
+        }
+        // Save to Firestore
+        await firebase_js_1.db.collection('registrations').doc(registrationId).set(registrationData);
+        console.log('✅ Registration saved successfully to Firestore:', registrationId);
+        return res.status(201).json({
+            status: 'success',
+            message: 'Registration saved successfully',
+            data: {
+                id: registrationId,
+                email: email,
+                pdfUrl: pdfUrl,
+            },
+        });
+    }
+    catch (error) {
+        console.error('❌ REGISTRATION ERROR:');
+        if (error instanceof Error) {
+            console.error('   Message:', error.message);
+            console.error('   Stack:', error.stack);
+        }
+        else {
+            console.error('   Error Object:', JSON.stringify(error, null, 2));
+        }
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to register user',
+            error: error instanceof Error ? error.message : 'Unknown error',
+        });
+    }
+};
+exports.registerUser = registerUser;
+// ============================================
+// GET SIGNED PDF URL
+// ============================================
+const getSignedPdfUrl = async (req, res) => {
+    try {
+        const { publicId } = req.query;
+        if (!publicId) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'publicId is required',
+            });
+        }
+        // Generate signed URL valid for 10 minutes
+        const signedUrl = cloudinary_js_1.default.utils.private_download_url(publicId, 'pdf', {
+            expires_at: Math.floor(Date.now() / 1000) + 600, // 10 minutes from now
+        });
+        console.log('✓ Signed PDF URL generated for:', publicId);
+        return res.status(200).json({
+            status: 'success',
+            url: signedUrl,
+        });
+    }
+    catch (error) {
+        console.error('❌ SIGNED URL ERROR:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to generate signed PDF URL',
+            error: error instanceof Error ? error.message : 'Unknown error',
+        });
+    }
+};
+exports.getSignedPdfUrl = getSignedPdfUrl;
