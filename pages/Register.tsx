@@ -5,7 +5,9 @@ import { RegistrationData } from '../types';
 
 const { useNavigate } = ReactRouterDOM as any;
 
-const BASE_PRICE = 2000;
+// Updated pricing as per requirements
+const BASE_PRICE = 999; 
+const IDEATHON_PRICE = 1499;
 const EXTRA_PERSON_PRICE = 750;
 
 const STALL_OPTIONS = {
@@ -57,8 +59,14 @@ const Register = () => {
   });
 
   const calculateTotal = () => {
-    const additionalCount = Math.max(0, attendeeCount - 2);
-    let total = BASE_PRICE + (additionalCount * EXTRA_PERSON_PRICE);
+    // Determine base price based on selection
+    const activeBasePrice = isIdeathon ? IDEATHON_PRICE : BASE_PRICE;
+    
+    // Calculate additional people (Base pass includes 1 person now based on logic, 
+    // or adjust attendeeCount - 1 if the first person is the base user)
+    const additionalCount = Math.max(0, attendeeCount - 1);
+    
+    let total = activeBasePrice + (additionalCount * EXTRA_PERSON_PRICE);
     total += STALL_OPTIONS[stallType];
     return total;
   };
@@ -116,7 +124,6 @@ const Register = () => {
   };
 
   const handleProceedToPayment = async () => {
-    console.log('Proceed to Payment button clicked');
     setIsSaving(true);
 
     const registrationData: RegistrationData = {
@@ -147,57 +154,50 @@ const Register = () => {
     };
 
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('registrationId', registrationIdRef.current);
       if (isIdeathon && pdfFile) {
-        const formDataToSend = new FormData();
-        formDataToSend.append('registrationId', registrationIdRef.current);
         formDataToSend.append('pdf', pdfFile);
-        formDataToSend.append('fullName', formData.fullName);
-        formDataToSend.append('email', formData.email);
-        formDataToSend.append('phone', formData.phone);
-        formDataToSend.append('city', formData.city);
-        formDataToSend.append('state', formData.state);
-        formDataToSend.append('organization', formData.organization);
-        formDataToSend.append('designation', formData.designation);
-        formDataToSend.append('orgType', formData.orgType);
-        formDataToSend.append('gender', formData.gender);
-        formDataToSend.append('domains', JSON.stringify(formData.domains));
-        formDataToSend.append('ecosystemRole', formData.ecosystemRole);
-        formDataToSend.append('purposes', JSON.stringify(formData.purposes));
-        formDataToSend.append('problemStatement', formData.problemStatement);
-        formDataToSend.append('solution', formData.solution);
-        formDataToSend.append('stallType', stallType);
-        formDataToSend.append('stallPrice', STALL_OPTIONS[stallType].toString());
-        formDataToSend.append('ticketCount', attendeeCount.toString());
-        formDataToSend.append('totalAmount', calculateTotal().toString());
-        formDataToSend.append('ticketType', 'Event + Ideathon');
+      }
+      formDataToSend.append('fullName', formData.fullName);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('city', formData.city);
+      formDataToSend.append('state', formData.state);
+      formDataToSend.append('organization', formData.organization);
+      formDataToSend.append('designation', formData.designation);
+      formDataToSend.append('orgType', formData.orgType);
+      formDataToSend.append('gender', formData.gender);
+      formDataToSend.append('domains', JSON.stringify(formData.domains));
+      formDataToSend.append('ecosystemRole', formData.ecosystemRole);
+      formDataToSend.append('purposes', JSON.stringify(formData.purposes));
+      formDataToSend.append('problemStatement', formData.problemStatement || '');
+      formDataToSend.append('solution', formData.solution || '');
+      formDataToSend.append('stallType', stallType);
+      formDataToSend.append('stallPrice', STALL_OPTIONS[stallType].toString());
+      formDataToSend.append('ticketCount', attendeeCount.toString());
+      formDataToSend.append('totalAmount', calculateTotal().toString());
+      formDataToSend.append('ticketType', isIdeathon ? 'Event + Ideathon' : 'Summit Pass');
 
-        const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
-        console.log('Register API →', `${backendUrl}/api/ticket/register`);
-        
-        const response = await fetch(`${backendUrl}/api/ticket/register`, {
-          method: 'POST',
-          body: formDataToSend,
-        });
+      const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
+      
+      const response = await fetch(`${backendUrl}/api/ticket/register`, {
+        method: 'POST',
+        body: formDataToSend,
+      });
 
-        if (!response.ok) {
-          let errorMessage = 'Failed to upload PDF';
-          try {
-            const error = await response.json();
-            errorMessage = error.message || errorMessage;
-          } catch (e) {
-            errorMessage = `Server error: ${response.status} ${response.statusText}`;
-          }
-          throw new Error(errorMessage);
-        }
-
-        const uploadResult = await response.json();
-        registrationData.pdfUrl = uploadResult.data.pdfUrl;
-        console.log('PDF uploaded successfully:', registrationData.pdfUrl);
+      if (!response.ok) {
+        throw new Error('Failed to save registration');
       }
 
-      // Backend (/api/ticket/register) already saves to Firestore - do not duplicate
-      // await saveRegistration(registrationData);
-      navigate('/payment', { state: { registrationId: registrationIdRef.current } });
+      // NAVIGATE TO PAYMENT PAGE (Not back to registration)
+      navigate('/payment', { 
+        state: { 
+          registrationId: registrationIdRef.current,
+          amount: calculateTotal()
+        } 
+      });
+
     } catch (err) {
       console.error('Registration error:', err);
       alert(err instanceof Error ? err.message : "Error saving registration.");
@@ -250,7 +250,7 @@ const Register = () => {
                 <div className="absolute top-0 right-0 bg-purple-600 text-[10px] font-bold px-3 py-1">BEST VALUE</div>
                 <h3 className="text-xl font-black text-white uppercase mb-2 group-hover:text-purple-500 transition-colors">Event + Ideathon</h3>
                 <p className="text-zinc-500 text-sm mb-6">Includes event pass plus pitching entry & prizes.</p>
-                <p className="text-3xl font-black text-white italic">₹1799<span className="text-xs text-zinc-500 not-italic ml-1">/ person</span></p>
+                <p className="text-3xl font-black text-white italic">₹1499<span className="text-xs text-zinc-500 not-italic ml-1">/ person</span></p>
               </div>
             </div>
           </div>
@@ -277,9 +277,9 @@ const Register = () => {
             </div>
 
             <div className="pt-6 border-t border-zinc-800">
-              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-4">Attendees (Base Pass includes 2)</p>
+              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-4">Attendees</p>
               <div className="flex items-center gap-6 p-4 bg-zinc-900 rounded-2xl border border-zinc-800 w-fit mb-4">
-                <button type="button" onClick={() => setAttendeeCount(Math.max(2, attendeeCount - 1))} className="w-10 h-10 rounded-lg bg-zinc-800 text-white font-bold hover:bg-zinc-700">-</button>
+                <button type="button" onClick={() => setAttendeeCount(Math.max(1, attendeeCount - 1))} className="w-10 h-10 rounded-lg bg-zinc-800 text-white font-bold hover:bg-zinc-700">-</button>
                 <span className="text-xl font-bold text-white w-8 text-center">{attendeeCount}</span>
                 <button type="button" onClick={() => setAttendeeCount(attendeeCount + 1)} className="w-10 h-10 rounded-lg bg-zinc-800 text-white font-bold hover:bg-zinc-700">+</button>
               </div>
@@ -290,6 +290,7 @@ const Register = () => {
               <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
                 {(Object.keys(STALL_OPTIONS) as Array<keyof typeof STALL_OPTIONS>).map((option) => (
                   <button
+                    key={option}
                     key={option}
                     onClick={() => setStallType(option)}
                     className={`p-6 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-32 ${
@@ -476,7 +477,10 @@ const Register = () => {
               <div className="p-8 bg-purple-600/5">
                 <h4 className="text-[10px] font-black uppercase text-pink-500 mb-4 tracking-widest">Financial Summary</h4>
                 <div className="space-y-3">
-                  <div className="flex justify-between text-sm text-zinc-400 uppercase font-black"><span>Total Passes (x{attendeeCount})</span><span>₹{calculateTotal().toLocaleString()}</span></div>
+                  <div className="flex justify-between text-sm text-zinc-400 uppercase font-black">
+                    <span>{isIdeathon ? 'Event + Ideathon' : 'Normal Event'} (x{attendeeCount})</span>
+                    <span>₹{calculateTotal().toLocaleString()}</span>
+                  </div>
                   <div className="pt-4 border-t border-white/10 flex justify-between items-center">
                     <span className="text-white font-black uppercase text-xl italic tracking-tighter">Grand Total</span>
                     <span className="text-4xl font-black text-purple-400 italic">₹{calculateTotal().toLocaleString()}</span>
@@ -511,6 +515,7 @@ const Register = () => {
             <div className="space-y-3 mb-8 text-zinc-400 text-sm">
               <p className="flex items-center gap-2">🏆 <span className="font-bold text-white">₹30,000</span> for best 3 projects</p>
               <p className="flex items-center gap-2">📜 <span className="font-bold text-white">Free Patent</span> & expert consultation</p>
+              <p className="flex items-center gap-2">🔥 <span className="font-bold text-white">Only ₹1,499</span> inclusive of event pass</p>
             </div>
             <div className="flex flex-col gap-3">
               <button onClick={() => { setIsIdeathon(true); setShowUpsell(false); setStep(5.5); }} className="w-full bg-purple-600 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-purple-500 transition-all">Yes, I want to attend</button>
