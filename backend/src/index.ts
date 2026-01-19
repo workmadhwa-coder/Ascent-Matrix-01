@@ -1,33 +1,38 @@
 // MUST be first
-import 'dotenv/config';
+import "dotenv/config";
 
-import express from 'express';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
 
-// ✅ Initialize Firebase ONCE
-import './config/firebase.js';
+// Initialize Firebase & Cloudinary ONCE
+import "./config/firebase.js";
+import "./config/cloudinary.js";
 
-// ✅ Initialize Cloudinary ONCE
-import './config/cloudinary.js';
-
-import apiRoutes from './routes/api.routes.js';
-import paymentRoutes from './routes/payment.routes.js';
+import apiRoutes from "./routes/api.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Correct CORS for Render
+// ===============================
+// ✅ CORRECT CORS CONFIG (FIXED)
+// ===============================
 app.use(
   cors({
     origin: [
-      'http://localhost:5173',
-      process.env.FRONTEND_URL || ''
+      "http://localhost:5173",
+      "https://ascent-matrix-01.onrender.com" // 🔥 YOUR FRONTEND
     ],
-    methods: ['GET', 'POST'],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
 
+// 🔥 VERY IMPORTANT: allow preflight
+app.options("*", cors());
+
+// Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,25 +42,28 @@ app.use((req, _res, next) => {
   next();
 });
 
+// ===============================
 // Routes
-app.use('/api', apiRoutes);
-app.use('/api', paymentRoutes);
+// ===============================
+app.use("/api", apiRoutes);
+app.use("/api", paymentRoutes);
 
-// Health Check (Render friendly)
-app.get('/', (_req, res) => {
+// Health Check
+app.get("/", (_req, res) => {
   res.json({
-    status: 'online',
-    message: 'Ascent Matrix Secure API is active'
+    status: "online",
+    message: "Ascent Matrix Secure API is active"
   });
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log('--------------------------------------------------');
+  console.log("--------------------------------------------------");
   console.log(`🚀 API running on port ${PORT}`);
   console.log(
     `🔑 Razorpay Mode: ${
-      process.env.RAZORPAY_KEY_ID?.startsWith('rzp_test') ? 'Test' : 'Live'
+      process.env.RAZORPAY_KEY_ID?.startsWith("rzp_test") ? "Test" : "Live"
     }`
   );
-  console.log('--------------------------------------------------');
+  console.log("--------------------------------------------------");
 });
