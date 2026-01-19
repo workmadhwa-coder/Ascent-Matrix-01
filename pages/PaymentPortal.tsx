@@ -31,7 +31,7 @@ declare const Razorpay: any;
 const getBaseUrl = () => {
   // @ts-ignore - Handles environments where import.meta.env isn't typed yet
   const env = (import.meta as any).env;
-  return env?.VITE_API_BASE_URL || 'http://localhost:3000';
+  return env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
 };
 
 const API_BASE_URL = getBaseUrl();
