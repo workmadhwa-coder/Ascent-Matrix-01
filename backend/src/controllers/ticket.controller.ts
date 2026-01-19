@@ -65,7 +65,7 @@ export const generateAndEmail = async (req: any, res: any) => {
         {
           filename: `Pass_${registrationData.id}.pdf`,
           content: pdfBuffer.toString('base64'),
-          contentType: 'application/pdf'
+          content_type: 'application/pdf'
         }
       ]
     });
