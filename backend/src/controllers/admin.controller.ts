@@ -1,10 +1,9 @@
-
 import { db } from '../config/firebase.js';
 import crypto from 'crypto';
 
 export const adminLogin = async (req: any, res: any) => {
   const { email, password } = req.body;
- const envEmail = process.env.ADMIN_EMAIL;
+  const envEmail = process.env.ADMIN_EMAIL;
   
   if (email === envEmail && password === process.env.ADMIN_PASSWORD_RAW) {
     return res.status(200).json({ 
@@ -18,16 +17,19 @@ export const adminLogin = async (req: any, res: any) => {
 
 export const getRegistrations = async (req: any, res: any) => {
   try {
-    const snapshot = await db.collection('registrations').orderBy('registrationDate', 'desc').get();
+    // CORRECTION: Changed 'registrationDate' to 'createdAt' to match your DB
+    const snapshot = await db.collection('registrations').orderBy('createdAt', 'desc').get();
     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     res.status(200).json(data);
   } catch (err) {
+    console.error("Fetch Error:", err);
     res.status(500).json({ error: "Failed to fetch registrations" });
   }
 };
 
 export const getSponsorships = async (req: any, res: any) => {
   try {
+    // Ensure this matches the field in your sponsorships collection
     const snapshot = await db.collection('sponsorships').orderBy('date', 'desc').get();
     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     res.status(200).json(data);
