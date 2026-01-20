@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { RegistrationData, SponsorshipInquiry } from '../types';
 
-const API_BASE_URL = 'https://ascent-matrix-01.onrender.com';
+const API_BASE_URL = 'https://backend-3bat.onrender.com';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
