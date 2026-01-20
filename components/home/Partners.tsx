@@ -1,63 +1,98 @@
 import React from 'react';
-import { FACILITATORS, BANKERS } from '../../constants';
 
-const SponsorCard = ({ tier, logo, color = "bg-pink-600" }: { tier: string, logo: string, color?: string }) => (
-  <div className="rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 border border-zinc-800 group">
-    <div className={`${color} text-white text-center py-2 font-bold uppercase text-xs tracking-wider`}>
-      {tier}
+/* ===================== REUSABLE SPONSOR BOX ===================== */
+const SponsorBox = ({ title, logoUrl, altText, colorClass = "bg-[#d83474]", size = "small" }) => (
+  <div className={`flex flex-col w-full rounded-xl overflow-hidden bg-[#161618] border border-zinc-800 shadow-xl transition-transform hover:scale-105 duration-300`}>
+    {/* Category Header */}
+    <div className={`${colorClass} py-2 px-4 text-center`}>
+      <span className="text-[10px] font-bold uppercase tracking-widest text-white whitespace-nowrap">
+        {title}
+      </span>
     </div>
-    <div className="bg-zinc-900 p-4 flex items-center justify-center h-28 relative group-hover:bg-zinc-800 transition-colors">
-      <img src={logo} alt={tier} className="max-h-16 max-w-full object-contain filter brightness-0 invert opacity-60 group-hover:opacity-100 transition-all duration-300" />
+    {/* Logo Area */}
+    <div className={`flex items-center justify-center p-6 ${size === 'large' ? 'h-48' : 'h-32'}`}>
+      <img 
+        src={logoUrl} 
+        alt={altText} 
+        className="max-h-full max-w-full object-contain" 
+      />
     </div>
   </div>
 );
 
 export const Partners = () => {
-  return (
-    <>
-      <section className="py-24 px-4 border-t border-zinc-800 bg-[#080808]">
-        <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div>
-                     <h3 className="text-2xl font-bold text-white mb-8 uppercase tracking-widest text-center md:text-left border-l-4 border-purple-500 pl-4">Facilitators</h3>
-                     <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-                        {FACILITATORS.map(f => (
-                            <div key={f.name} className="bg-white rounded-lg h-24 w-48 flex items-center justify-center shadow-lg hover:scale-105 transition-transform">
-                                <span className="text-black font-extrabold text-2xl uppercase tracking-tighter">{f.name}</span>
-                            </div>
-                        ))}
-                     </div>
-                </div>
-                <div>
-                     <h3 className="text-2xl font-bold text-white mb-8 uppercase tracking-widest text-center md:text-left border-l-4 border-pink-500 pl-4">Banking Partners</h3>
-                     <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                        {BANKERS.map(b => (
-                            <span key={b} className="bg-zinc-800 px-5 py-2 rounded-full text-gray-300 text-sm font-bold border border-zinc-700 hover:border-pink-500 hover:text-white hover:bg-zinc-700 transition-all cursor-default">
-                                {b}
-                            </span>
-                        ))}
-                     </div>
-                </div>
-            </div>
-        </div>
-      </section>
+  // Top Row - Big Logos
+  const organizers = [
+    {
+      title: "ORGANIZING PARTNER",
+      logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/sslogowhite_cpuhl7.png",
+      name: "Ssinphinite",
+      color: "bg-[#d83474]"
+    },
+    {
+      title: "ORGANIZING PARTNER",
+      logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768059000/SKLS-Logo-15_vuzqhg.png",
+      name: "satatham kritam legal from solutions llp",
+      color: "bg-[#d83474]"
+    }
+  ];
 
-      <section className="py-24 px-4 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-4">Global Sponsors</h2>
-                <div className="w-24 h-1.5 bg-zinc-800 mx-auto rounded-full"></div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <SponsorCard tier="Platinum Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" color="bg-pink-600" />
-                <SponsorCard tier="AI Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" color="bg-pink-500" />
-                <SponsorCard tier="Biotech Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" color="bg-pink-600" />
-                <SponsorCard tier="Diamond Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" color="bg-purple-600" />
-                <SponsorCard tier="Diamond Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" color="bg-purple-600" />
-                <SponsorCard tier="Diamond Sponsor" logo="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" color="bg-purple-600" />
-            </div>
+  // Grid - Other Logos
+  const otherSponsors = [
+        { title: "SCIENCE & TECHNOLOGY PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/KSCST_vfzrae.png", name: "Kscst", color: "bg-[#8a3ffc]" },
+            { title: "KNOWLEDGE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/IEEE_TEMS_zf8cb9.jpg", name: "Ieee tems", color: "bg-[#d83474]" },
+               { title: "IP PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/IPTEL_IISc_pzjp87.jpg", name: "IP Tel", color: "bg-[#8a3ffc]" },
+                   { title: "INNOVATION PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/InnoMantra_nxzaaw.jpg", name: "Innomantra", color: "bg-[#d83474]" },
+                   { title: "ECOSYSTEM PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/Startup_Tumkur_th3vti.jpg", name: "Startup Tumkur", color: "bg-[#8a3ffc]" },
+                       { title: "AGRITECH PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/file_0000000055e871f68fad5a0f797da709_1_mkqxul.png", name: "Kalpakrushi", color: "bg-[#d83474]" },
+    { title: "DIGITAL PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/MADHWA_INFOTECH_LOGO_FINAL_-_WHITE_pc6lwz.png", name: "Madhwa Infotech", color: "bg-[#8a3ffc]" },
+    { title: "SOFTWARE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/viniwhite_vdvueg.png", name: "Vindira Softech", color: "bg-[#d83474]" },
+    { title: "EXPERIENCE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/Zodiac_Creations_LOGO_FINAL_-_WHITE_qumym5.png", name: "Zodiac", color: "bg-[#8a3ffc]" },
+    { title: "COMMUNITY PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/Malleshwaram_Civic_Society_fyt58v.jpg", name: "M2", color: "bg-[#d83474]" }
+  ];
+
+  return (
+    <section className="py-24 px-4 border-t border-zinc-800 bg-[#080808]">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Main Title */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-bold text-[#b666d2] mb-4">
+            FACILITATORS
+          </h2>
+          <div className="w-24 h-1 bg-zinc-700 mx-auto rounded-full"></div>
         </div>
-      </section>
-    </>
+
+        {/* TOP ROW: 2 BIG LOGOS */}
+        <div className="flex flex-col md:flex-row justify-center gap-8 mb-16">
+          {organizers.map((org, idx) => (
+            <div key={idx} className="w-full md:w-1/3">
+              <SponsorBox 
+                title={org.title}
+                logoUrl={org.logo}
+                altText={org.name}
+                colorClass={org.color}
+                size="large"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* BOTTOM SECTION: ALL OTHER LOGOS IN BOXES */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {otherSponsors.map((sponsor, index) => (
+            <SponsorBox 
+              key={index}
+              title={sponsor.title}
+              logoUrl={sponsor.logo}
+              altText={sponsor.name}
+              colorClass={sponsor.color}
+              size="small"
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 };
