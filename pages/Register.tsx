@@ -19,6 +19,44 @@ const ORG_TYPES = ["Startup", "MSME", "Corporate / MNC", "Investor / VC / Angel"
 const DOMAINS = ["AI / ML", "Semiconductor", "Robotics / Electronics", "MedTech / HealthTech", "Clean Energy / ClimateTech", "SpaceTech / DefenceTech", "AgriTech", "FinTech", "Manufacturing / Industry 4.0", "Cybersecurity", "Biotech / Life Sciences", "Smart Mobility", "Quantum", "Bio informatics", "Legal / IP", "Other"];
 const ROLES = ["Founder / Co-Founder", "Innovator", "Investor", "Mentor", "Banker / Financial Facilitator", "Industry Leader", "Academia / Researcher", "Policy / Government", "Student / Aspiring Entrepreneur"];
 const PURPOSES = ["Investment / Funding Opportunities", "Mentorship & Expert Guidance", "Bank & Financial Support", "Industry Partnerships", "Policy & Government Connect", "Market Access / Pilots", "Networking & Ecosystem Exposure"];
+const STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi (National Capital Territory of Delhi)",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry"
+];
 
 const Register = () => {
   const navigate = useNavigate();
@@ -401,7 +439,19 @@ const Register = () => {
                 <input type="text" placeholder="City" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className={inputClass('city')} />
               </div>
               <div data-error={errors.includes('state') ? 'true' : 'false'}>
-                <input type="text" placeholder="State" value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} className={inputClass('state')} />
+                <select value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} className={inputClass('state')}>
+                  <option value="">Select State / Union Territory</option>
+                  <optgroup label="States">
+                    {STATES.filter(s => !s.includes('Islands') && !s.includes('Chandigarh') && !s.includes('Dadra') && !s.includes('Delhi') && !s.includes('Jammu') && !s.includes('Ladakh') && !s.includes('Lakshadweep') && !s.includes('Puducherry')).map(state => (
+                      <option key={state}>{state}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Union Territories">
+                    {STATES.filter(s => s.includes('Islands') || s.includes('Chandigarh') || s.includes('Dadra') || s.includes('Delhi') || s.includes('Jammu') || s.includes('Ladakh') || s.includes('Lakshadweep') || s.includes('Puducherry')).map(ut => (
+                      <option key={ut}>{ut}</option>
+                    ))}
+                  </optgroup>
+                </select>
               </div>
             </div>
 
@@ -584,12 +634,15 @@ const Register = () => {
                     </button>
                 ))}
             </div>
-            <div className="flex gap-4 mt-8">
+            <div className="space-y-4">
+              <p className="text-zinc-400 text-sm font-black italic">Future QUC Session Participation?</p>
+              <div className="flex gap-4">
                 {["Yes", "No", "Maybe"].map(val => (
                     <button key={val} onClick={() => setFormData({...formData, qucInterest: val})} className={`flex-1 py-4 rounded-xl border font-black uppercase text-xs transition-all ${formData.qucInterest === val ? 'bg-green-600 border-green-400 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500'}`}>
                         {val}
                     </button>
                 ))}
+              </div>
             </div>
             <div className="flex justify-between pt-10 border-t border-zinc-800">
                 <button onClick={() => setStep(4)} className="text-zinc-500 font-black uppercase text-sm">Back</button>
