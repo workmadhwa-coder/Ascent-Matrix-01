@@ -102,9 +102,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         { name: 'What is Ascent?', path: '/#about' },
         { name: 'The Pillars', path: '/#pillars' },
         { name: 'Outcomes', path: '/#outcomes' },
-        { name: 'Summit Inauguration', path: '/#summit' },
-        { name: 'The People (Portfolio)', path: '/#portfolio' },
-        { name: 'Leadership Matrix', path: '/#committees' },
+        { name: 'Ascent Matrix Prelude', path: '/#summit' },
         { name: 'Global Partners', path: '/#partners' },
         { name: 'Join The Matrix (CTA)', path: '/#cta' }
       ]
