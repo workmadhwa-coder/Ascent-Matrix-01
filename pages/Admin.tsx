@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { RegistrationData, SponsorshipInquiry } from '../types';
 
-const API_BASE_URL = 'https://backend-3bat.onrender.com';
+const API_BASE_URL = 'http://localhost:3000';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
