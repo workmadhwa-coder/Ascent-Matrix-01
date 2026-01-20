@@ -14,7 +14,7 @@ export const CTA = () => {
         <p className="text-xl text-purple-100 mb-10 font-medium">Commit to the Quarterly Unified Connect. Amplify India's Innovation.</p>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
           <Link to="/register" className="bg-white text-purple-900 hover:bg-gray-100 px-12 py-5 rounded-full font-black text-2xl shadow-2xl transition-transform hover:scale-105">
-            JOIN THE MATRIX
+            REGISTER FOR PRELUDE
           </Link>
         </div>
       </div>
