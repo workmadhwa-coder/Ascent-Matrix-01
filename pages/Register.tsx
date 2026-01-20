@@ -290,15 +290,12 @@ const Register = () => {
               <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
                 {(Object.keys(STALL_OPTIONS) as Array<keyof typeof STALL_OPTIONS>).map((option) => (
                   <button
-                    key={option}
-                    key={option}
-                    onClick={() => setStallType(option)}
-                    className={`p-6 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-32 ${
-                      stallType === option 
-                      ? 'border-purple-500 bg-purple-500/10' 
-                      : 'border-zinc-800 bg-zinc-900 hover:border-zinc-600'
-                    }`}
-                  >
+  key={option}
+  onClick={() => setStallType(option)}
+  className={`p-6 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-32 ${
+    stallType === option ? 'border-blue-600' : 'border-gray-300'
+  }`}
+>
                     <span className="text-white font-black uppercase text-sm">{option === 'None' ? 'No Stall' : option}</span>
                     <span className="text-purple-400 font-bold text-xs">{option === 'None' ? '-' : `₹${STALL_OPTIONS[option].toLocaleString()}`}</span>
                   </button>
