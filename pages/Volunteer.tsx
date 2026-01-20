@@ -124,23 +124,21 @@ const Volunteer = () => {
   };
 
   const onScanSuccess = async (decodedText: string) => {
-    try {
-      const trimmedId = decodedText.trim();
-      const res = await fetch('https://backend-3bat.onrender.com/api/volunteer/check-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ticketId: trimmedId })
-      });
-      const data = await res.json();
-      if (data.status === 'success') {
-        await stopScanner();
-        await loadData();
-        setScannedAttendee({ ...data.attendee, checkedIn: true });
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      alert("Check-in Failed");
+    const trimmedId = decodedText.trim();
+    
+    // 1. Find the user in our local 'users' list first
+    const attendee = users.find(u => u.id === trimmedId);
+
+    if (attendee) {
+      // 2. Stop the camera
+      await stopScanner();
+      
+      // 3. Set the scanned attendee (this shows the info card with the Check-In button)
+      setScannedAttendee(attendee);
+    } else {
+      // Handle cases where the ID isn't in the PAID list
+      alert("Invalid Ticket: Delegate not found or unpaid.");
+      await stopScanner();
     }
   };
 
