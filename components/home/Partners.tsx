@@ -39,17 +39,74 @@ export const Partners = () => {
 
   // Grid - Other Logos
   const otherSponsors = [
-        { title: "SCIENCE & TECHNOLOGY PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/KSCST_vfzrae.png", name: "Kscst", color: "bg-[#8a3ffc]" },
-            { title: "KNOWLEDGE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/IEEE_TEMS_zf8cb9.jpg", name: "Ieee tems", color: "bg-[#d83474]" },
-               { title: "IP PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/IPTEL_IISc_pzjp87.jpg", name: "IP Tel", color: "bg-[#8a3ffc]" },
-                   { title: "INNOVATION PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/InnoMantra_nxzaaw.jpg", name: "Innomantra", color: "bg-[#d83474]" },
-                   { title: "ECOSYSTEM PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/Startup_Tumkur_th3vti.jpg", name: "Startup Tumkur", color: "bg-[#8a3ffc]" },
-                       { title: "AGRITECH PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/file_0000000055e871f68fad5a0f797da709_1_mkqxul.png", name: "Kalpakrushi", color: "bg-[#d83474]" },
-    { title: "DIGITAL PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/MADHWA_INFOTECH_LOGO_FINAL_-_WHITE_pc6lwz.png", name: "Madhwa Infotech", color: "bg-[#8a3ffc]" },
-    { title: "SOFTWARE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/viniwhite_vdvueg.png", name: "Vindira Softech", color: "bg-[#d83474]" },
-    { title: "EXPERIENCE PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/Zodiac_Creations_LOGO_FINAL_-_WHITE_qumym5.png", name: "Zodiac", color: "bg-[#8a3ffc]" },
-    { title: "COMMUNITY PARTNER", logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/Malleshwaram_Civic_Society_fyt58v.jpg", name: "M2", color: "bg-[#d83474]" }
-  ];
+  {
+    title: "SCIENCE & TECHNOLOGY PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/KSCST_vfzrae.png",
+    name: "Kscst",
+    color: "bg-[#8a3ffc]"
+  },
+  {
+    title: "KNOWLEDGE PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/IEEE_TEMS_zf8cb9.jpg",
+    name: "Ieee tems",
+    color: "bg-[#d83474]"
+  },
+  {
+    title: "IP PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/IPTEL_IISc_pzjp87.jpg",
+    name: "IP Tel",
+    color: "bg-[#8a3ffc]"
+  },
+  {
+    title: "LEGAL PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768905196/aekam_eqyfke.jpg",
+    name: "IP Tel",
+    color: "bg-[#d83474]"
+  },
+  {
+    title: "INNOVATION PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/InnoMantra_nxzaaw.jpg",
+    name: "Innomantra",
+    color: "bg-[#8a3ffc]"
+  },
+  {
+    title: "ECOSYSTEM PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/Startup_Tumkur_th3vti.jpg",
+    name: "Startup Tumkur",
+    color: "bg-[#d83474]"
+  },
+  {
+    title: "AGRITECH PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/file_0000000055e871f68fad5a0f797da709_1_mkqxul.png",
+    name: "Kalpakrushi",
+    color: "bg-[#8a3ffc]"
+  },
+  {
+    title: "DIGITAL PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/MADHWA_INFOTECH_LOGO_FINAL_-_WHITE_pc6lwz.png",
+    name: "Madhwa Infotech",
+    color: "bg-[#d83474]"
+  },
+  {
+    title: "SOFTWARE PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/viniwhite_vdvueg.png",
+    name: "Vindira Softech",
+    color: "bg-[#8a3ffc]"
+  },
+  {
+    title: "EXPERIENCE PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/Zodiac_Creations_LOGO_FINAL_-_WHITE_qumym5.png",
+    name: "Zodiac",
+    color: "bg-[#d83474]"
+  },
+  {
+    title: "COMMUNITY PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/Malleshwaram_Civic_Society_fyt58v.jpg",
+    name: "M2",
+    color: "bg-[#8a3ffc]"
+  }
+];
+
 
   return (
     <section className="py-24 px-4 border-t border-zinc-800 bg-[#080808]">
