@@ -4,6 +4,49 @@ import { Menu, X, Linkedin, Twitter, Instagram, Facebook, ChevronDown } from './
 
 const { Link, useLocation, useNavigate } = ReactRouterDOM as any;
 
+// Mobile Dropdown Menu Item Component
+const MobileDropdownItem: React.FC<{ 
+  item: any; 
+  onNavClick: (path: string) => void;
+  onClose: () => void;
+}> = ({ item, onNavClick, onClose }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center justify-between px-6 py-4 text-sm font-black uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 border-l-2 border-transparent hover:border-purple-500 transition-all rounded-lg"
+      >
+        <span>{item.name}</span>
+        <ChevronDown 
+          className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
+        />
+      </button>
+      
+      {expanded && (
+        <div className="bg-white/5 border border-white/10 rounded-lg m-2 overflow-hidden">
+          <div className="py-2 px-2">
+            {item.dropdown.map((subItem: any) => (
+              <Link
+                key={subItem.name}
+                to={subItem.path}
+                onClick={() => {
+                  onNavClick(subItem.path);
+                  onClose();
+                }}
+                className="block px-4 py-3 text-xs font-black uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent hover:border-purple-500 transition-all rounded-lg"
+              >
+                {subItem.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -30,6 +73,23 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const closePopup = () => {
     setShowPopup(false);
     sessionStorage.setItem('ascent_matrix_popup_seen', 'true');
+  };
+
+  // Prevent body scroll when popup is open
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showPopup]);
+
+  const handleRegisterClick = () => {
+    closePopup();
+    navigate('/register');
   };
 
   const navItems = [
@@ -137,6 +197,112 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </div>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          {/* Backdrop with blur */}
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+            onClick={() => setIsOpen(false)}
+          />
+          
+          {/* Mobile Menu */}
+          <div className="absolute inset-0 overflow-y-auto bg-gradient-to-b from-black/95 via-black/90 to-black/95 pt-24 px-4">
+            <div className="max-w-md mx-auto space-y-2">
+              {navItems.map((item) => (
+                <div key={item.name}>
+                  {item.dropdown.length > 0 ? (
+                    <MobileDropdownItem 
+                      item={item} 
+                      onNavClick={handleNavClick}
+                      onClose={() => setIsOpen(false)}
+                    />
+                  ) : (
+                    <Link 
+                      to={item.path} 
+                      onClick={() => {
+                        handleNavClick(item.path);
+                        setIsOpen(false);
+                      }}
+                      className="block px-6 py-4 text-sm font-black uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 border-l-2 border-transparent hover:border-purple-500 transition-all rounded-lg"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
+              
+              {/* Mobile CTA Button */}
+              <div className="pt-6 pb-4">
+                <Link
+                  to="/register"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-center bg-gradient-to-r from-purple-500 via-pink-500 to-pink-600 text-white px-6 py-4 rounded-xl font-black text-sm transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] uppercase tracking-widest"
+                >
+                  Register for Prelude
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Registration Poster Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Dark blurred backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-md" 
+            onClick={closePopup}
+          />
+          
+          {/* Modal Container */}
+          <div className="relative z-50 w-full max-w-md bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={closePopup}
+              className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all border border-white/10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Poster Image */}
+            <div className="w-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 aspect-square sm:aspect-auto sm:h-96 flex items-center justify-center overflow-hidden">
+              <img
+                src="https://via.placeholder.com/500x600?text=Ascent+Matrix+Prelude+Registration"
+                alt="Registration Poster"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Content Section */}
+            <div className="p-6 sm:p-8 space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black uppercase tracking-widest text-white">
+                  Ascent Matrix Prelude
+                </h3>
+                <p className="text-sm text-zinc-400 uppercase tracking-wider">
+                  Join the definitive quarterly engine for Indian Deep-Tech
+                </p>
+              </div>
+
+              {/* Register Now Button */}
+              <button
+                onClick={handleRegisterClick}
+                className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-pink-600 text-white px-6 py-4 rounded-xl font-black text-sm transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] uppercase tracking-widest"
+              >
+                Register Now
+              </button>
+
+              {/* Dismiss text */}
+              <p className="text-center text-xs text-zinc-500 uppercase tracking-wider">
+                Click the X button or outside to dismiss
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="flex-grow pt-20">
         {children}
