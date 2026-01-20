@@ -351,6 +351,13 @@ const Register = () => {
         formDataToSend.append('designation', formData.designation);
         formDataToSend.append('totalAmount', calculateTotal().toString());
         formDataToSend.append('ticketType', isIdeathon ? 'Event + Ideathon' : 'Summit Pass');
+        formDataToSend.append('ticketCount', attendeeCount.toString());
+        formDataToSend.append('stallType', stallType);
+        formDataToSend.append('stallPrice', STALL_OPTIONS[stallType].toString());
+        if (isIdeathon) {
+          formDataToSend.append('problemStatement', formData.problemStatement);
+          formDataToSend.append('solution', formData.solution);
+        }
 
         const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
         const response = await fetch(`${backendUrl}/api/ticket/register`, { method: 'POST', body: formDataToSend });
