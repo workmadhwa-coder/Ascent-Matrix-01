@@ -7,7 +7,7 @@ const Venue = () => {
       {/* Hero Section */}
       <div className="relative h-[60vh] w-full overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2000" 
+          src="https://res.cloudinary.com/dzss2fubc/image/upload/v1767555646/Venu_Image_lvptfw.jpg" 
           alt="Chowdiah Memorial Hall" 
           className="w-full h-full object-cover grayscale brightness-50"
         />
@@ -70,7 +70,7 @@ const Venue = () => {
             <div className="absolute -inset-4 bg-gradient-to-tr from-purple-600/20 to-pink-600/20 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
             <div className="relative rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200" 
+                src="https://res.cloudinary.com/dzss2fubc/image/upload/v1767555646/Venu_Image_lvptfw.jpg" 
                 alt="Auditorium View" 
                 className="w-full h-full object-cover"
               />
