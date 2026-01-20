@@ -90,15 +90,16 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
 export const Summit = () => {
   const preludeSpeakers = [
-    { name: "Dr. Mahadeva Prasanna", title: "Director, IIIT-Dharwad", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767538776/mahadev_prasanna_omuzez.jpg" },
+    { name: "Dr. S R Mahadeva Prasanna", title: "Director, IIIT-Dharwad", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767538776/mahadev_prasanna_omuzez.jpg" },
+     { name: "R. Gopinath Rao, IEDS", title: "Dy. Director (Rtd.), MSME, Govt. of India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768923125/R.-Gopinath-Rao_cemuol.png" },
     { name: "Dr. Sudheendra Koushik", title: "Chairperson, IEEE-TEMS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541578/sudheendra_koushik_jdkq1b.jpg" },
-    { name: "Mr. Siddesh Math", title: "AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
-    { name: "Dr. Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767534705/1758418544838_gefyin.jpg" },
-    { name: "Dr. S K Murthy", title: "Founder, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767554632/skm_texgc4.jpg" },
-    { name: "Dr. Brinda Varma", title: "Aekam legal", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541551/brinda_abceq8.jpg" },
-    { name: "Dr. Vijay Sarathy", title: "Head- Licensing and Analytics, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541592/vijay_singh_ji0dno.png" },
-    { name: "Mr. Ashok Chandavarkar", title: "Designated partner, NurtuRise Advisors", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767538463/ashok_kumar_vehuyi.jpg" },
-    { name: "Dr. Bhanu Prashanth", title: "Dean, BMSCE", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541537/bhanuprashanth_yvb2uu.jpg" }
+    { name: "Mr. Siddesh Math", title: "Corporate VP, AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
+    { name: "Dr. Viswanathan Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/SESHAN_fjoxdm.jpg" },
+    { name: "Dr. S K Murthy", title: "Founder, SK Legal Solutions", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767554632/skm_texgc4.jpg" },
+    { name: "Dr. Brinda Varma", title: "Founder, Aekam legal", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541551/brinda_abceq8.jpg" },
+    { name: "Dr. Vijay Sarathy", title: "Head- Licensing and Analytics, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924780/VIJAY_SARATHY_bcrbxn.jpg" },
+    { name: "Mr. Ashok Chandavarkar", title: "Designated partner, NurtuRise Advisors", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/Ashok_Chandavarkar_qmni6b.jpg" },
+    { name: "Dr. S B Bhanu Prashanth", title: "Dean - FYB, BMS College of Engineering", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541537/bhanuprashanth_yvb2uu.jpg" }
   ];
 
   const eventData: TimelineEntry[] = [
@@ -113,17 +114,17 @@ export const Summit = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-500"></span>
                 </span>
-                Confirmed
+                30th January 2026
               </div>
               <h4 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter leading-none">Ascent Matrix - Prelude</h4>
-              <p className="text-fuchsia-500 font-bold uppercase text-[10px] md:text-sm mt-2">Theme: Architecting an IP-First Innovation Ecosystem</p>
+              <p className="text-fuchsia-500 font-bold uppercase text-[10px] md:text-sm mt-2">Architecting an IP-First Innovation Ecosystem</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
             <div className="bg-white/5 p-5 rounded-xl border border-white/10">
               <h5 className="text-fuchsia-400 font-black text-[10px] uppercase mb-2 tracking-widest">Mission</h5>
-              <p className="text-neutral-300 text-xs md:text-sm leading-relaxed">Transforming innovation from "Utility-based" to an "Asset-based" model.</p>
+              <p className="text-neutral-300 text-xs md:text-sm leading-relaxed">Transforming innovation to an "Asset-based" model.</p>
             </div>
             <div className="bg-white/5 p-5 rounded-xl border border-white/10">
               <h5 className="text-fuchsia-400 font-black text-[10px] uppercase mb-2 tracking-widest">Strategic Imperative</h5>
@@ -158,7 +159,7 @@ export const Summit = () => {
 
           {/* UPDATED GUEST SPEAKERS LIST - 2 PER ROW ON MOBILE */}
           <div className="mb-16">
-            <h5 className="text-white font-black text-lg md:text-xl mb-6 uppercase italic border-l-4 border-fuchsia-500 pl-4">Guest Speakers & Facilitators</h5>
+            <h5 className="text-white font-black text-lg md:text-xl mb-6 uppercase italic border-l-4 border-fuchsia-500 pl-4">The Portfolio</h5>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
               {preludeSpeakers.map((speaker, idx) => (
                 <SpeakerCard key={idx} {...speaker} />
@@ -171,12 +172,12 @@ export const Summit = () => {
             <h5 className="text-white font-black text-lg md:text-xl mb-6 uppercase italic border-l-4 border-fuchsia-500 pl-4">Operational Architecture</h5>
             <div className="space-y-2">
               {[
-                { time: "10:00 - 11:00", event: "Inaugural", speakers: "Dr. Mahadev Prasanna, Dr. Sudheendra Koushik, Siddesh Math, Dr. Seshan" },
-                { time: "11:00 - 11:15", event: "Technical 1", speakers: "Dr. S K Murthy - Problem Discovery" },
-                { time: "11:15 - 11:30", event: "Technical 2", speakers: "Dr. Brinda Varma - The IP Moat" },
-                { time: "11:30 - 11:45", event: "Technical 3", speakers: "Dr. Vijay Sarathy - Commercialization" },
-                { time: "12:00 - 12:30", event: "Technical 4", speakers: "Ashok Chandavarkar - Investor Focus" },
-                { time: "12:30 - 01:00", event: "Report Out", speakers: "Dr. Bhanu Prashanth - Invention Reports" }
+                { time: "10:30 - 11:30", event: "Inaugural", speakers: "Dr. Mahadev Prasanna, Dr. Sudheendra Koushik, Siddesh Math, Dr. Seshan" },
+                { time: "11:30 - 11:45", event: "Session 1", speakers: "Dr. S K Murthy - Problem Discovery" },
+                { time: "11:45 - 12:00", event: "Session 2", speakers: "Dr. Brinda Varma - The IP Moat" },
+                { time: "12:00 - 12:15", event: "Session 3", speakers: "Dr. Vijay Sarathy - Commercialization" },
+                { time: "12:30 - 01:00", event: "Session 4", speakers: "Ashok Chandavarkar - Investor Focus" },
+                { time: "01:00 - 01:30", event: "Report Out", speakers: "Dr. Bhanu Prashanth - Invention Reports" }
               ].map((slot, i) => (
                 <div key={i} className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
                   <div className="text-fuchsia-400 font-mono font-bold text-[10px] md:text-xs">{slot.time}</div>
@@ -208,7 +209,7 @@ export const Summit = () => {
       ),
     },
     {
-      title: "Ascent Matrix Inaugural",
+      title: "Inaugural Summit",
       content: (
         <div className="bg-zinc-900/30 p-6 rounded-2xl border border-white/5 border-dashed">
           <h4 className="text-xl md:text-2xl font-bold text-neutral-500 italic uppercase">To Be Announced</h4>
@@ -217,7 +218,7 @@ export const Summit = () => {
       ),
     },
     {
-      title: "QA 1 Ascent Matrix",
+      title: "QUC 1",
       content: (
         <div className="bg-zinc-900/30 p-6 rounded-2xl border border-white/5 border-dashed">
           <h4 className="text-xl md:text-2xl font-bold text-neutral-500 italic uppercase">To Be Announced</h4>
