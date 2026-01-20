@@ -358,6 +358,14 @@ const Register = () => {
           formDataToSend.append('problemStatement', formData.problemStatement);
           formDataToSend.append('solution', formData.solution);
         }
+        formDataToSend.append('gender', formData.gender);
+        formDataToSend.append('orgType', formData.orgType);
+        formDataToSend.append('orgTypeOther', formData.orgTypeOther);
+        formDataToSend.append('domains', JSON.stringify(formData.domains));
+        formDataToSend.append('domainsOther', formData.domainsOther);
+        formDataToSend.append('ecosystemRole', formData.ecosystemRole);
+        formDataToSend.append('purposes', JSON.stringify(formData.purposes));
+        formDataToSend.append('qucInterest', formData.qucInterest);
 
         const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
         const response = await fetch(`${backendUrl}/api/ticket/register`, { method: 'POST', body: formDataToSend });
