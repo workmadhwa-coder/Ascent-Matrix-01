@@ -72,9 +72,10 @@ const Volunteer = () => {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/admin/registrations');
+      const res = await fetch('https://backend-3bat.onrender.com/api/admin/registrations');
       const data = await res.json();
-      setUsers(data.filter((u: any) => u.paymentStatus === 'PAID'));
+      console.log('Guest list data received:', data);
+      setUsers(data.filter((u: any) => u.paymentStatus?.toUpperCase() === 'PAID'));
     } catch (err) {
       console.error("Failed to load guest list");
     } finally {
@@ -122,19 +123,30 @@ const Volunteer = () => {
     }, 300);
   };
 
-  const onScanSuccess = (decodedText: string) => {
-    const user = users.find(u => u.id === decodedText);
-    if (user) {
-      setScannedAttendee(user);
-      stopScanner();
-    } else {
-      alert("Invalid QR Code or Unpaid Delegate");
+  const onScanSuccess = async (decodedText: string) => {
+    try {
+      const trimmedId = decodedText.trim();
+      const res = await fetch('https://backend-3bat.onrender.com/api/volunteer/check-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ticketId: trimmedId })
+      });
+      const data = await res.json();
+      if (data.status === 'success') {
+        await stopScanner();
+        await loadData();
+        setScannedAttendee({ ...data.attendee, checkedIn: true });
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert("Check-in Failed");
     }
   };
 
   const handleCheckIn = async (id: string) => {
     try {
-      const res = await fetch('http://localhost:3000/api/volunteer/check-in', {
+      const res = await fetch('https://backend-3bat.onrender.com/api/volunteer/check-in', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ticketId: id })
