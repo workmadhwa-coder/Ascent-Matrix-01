@@ -125,7 +125,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     to="/register"
     className="bg-gradient-to-r from-purple-500 via-pink-500 to-pink-600 text-white px-8 py-3 rounded-xl font-black text-[10px] transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] uppercase tracking-widest"
   >
-    Register Now
+    Register for Prelude
   </Link>
 </div>
 
