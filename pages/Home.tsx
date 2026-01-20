@@ -20,7 +20,6 @@ const Home = () => {
       <div id="outcomes"><Outcomes /></div>
       <div id="summit"><Summit /></div>
       <div id="venue-preview"><VenueHome /></div>
-      <div id="committees"><Committees /></div>
       <div id="partners"><Partners /></div>
       <div id="cta"><CTA /></div>
     </div>
