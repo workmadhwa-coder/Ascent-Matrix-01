@@ -227,6 +227,17 @@ const Admin = () => {
               <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Organization</p><p className="text-white font-bold">{selectedReg.organization}</p></div>
               <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Location</p><p className="text-white font-bold">{selectedReg.city}, {selectedReg.state}</p></div>
               <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Ticket Type</p><p className="text-white font-bold">{selectedReg.ticketType}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Org Type</p><p className="text-white font-bold">{selectedReg.orgType || "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Org Type Other</p><p className="text-white font-bold">{selectedReg.orgTypeOther || "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Ecosystem Role</p><p className="text-white font-bold">{selectedReg.ecosystemRole || "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Domains</p><p className="text-white font-bold">{Array.isArray(selectedReg.domains) ? selectedReg.domains.join(", ") : "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Domains Other</p><p className="text-white font-bold">{selectedReg.domainsOther || "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Purposes</p><p className="text-white font-bold">{Array.isArray(selectedReg.purposes) ? selectedReg.purposes.join(", ") : "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Stall Type</p><p className="text-white font-bold">{selectedReg.stallType || "N/A"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Stall Price</p><p className="text-white font-bold">₹{selectedReg.stallPrice || "0"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Ticket Count</p><p className="text-white font-bold">{selectedReg.ticketCount || "0"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Amount</p><p className="text-white font-bold">₹{selectedReg.amount || "0"}</p></div>
+              <div><p className="text-[10px] text-purple-500 font-black uppercase mb-1">Paid At</p><p className="text-white font-bold">{selectedReg.paidAt ? new Date(selectedReg.paidAt).toLocaleString() : "N/A"}</p></div>
               <div className="col-span-2 bg-zinc-900 p-6 rounded-2xl">
                 <p className="text-[10px] text-green-500 font-black uppercase mb-2">Ideathon Problem Statement</p>
                 <p className="text-zinc-400 text-sm italic">{selectedReg.problemStatement || "Not provided"}</p>
