@@ -247,60 +247,77 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
 
       {/* Registration Poster Popup Modal */}
-      {showPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Dark blurred backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/70 backdrop-blur-md" 
-            onClick={closePopup}
-          />
-          
-          {/* Modal Container */}
-          <div className="relative z-50 w-full max-w-md bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            {/* Close Button */}
-            <button
-              onClick={closePopup}
-              className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all border border-white/10"
-            >
-              <X className="w-5 h-5" />
-            </button>
+{showPopup && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    {/* Dark blurred backdrop */}
+    <div 
+      className="absolute inset-0 bg-black/80 backdrop-blur-xl" 
+      onClick={closePopup}
+    />
+    
+    {/* Animated Glow Effect behind modal */}
+    <div className="absolute w-64 h-64 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" />
 
-            {/* Poster Image */}
-            <div className="w-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 aspect-square sm:aspect-auto sm:h-96 flex items-center justify-center overflow-hidden">
-              <img
-                src="https://via.placeholder.com/500x600?text=Ascent+Matrix+Prelude+Registration"
-                alt="Registration Poster"
-                className="w-full h-full object-cover"
-              />
-            </div>
+    {/* Modal Container */}
+    <div className="relative z-50 w-full max-w-md bg-zinc-950 rounded-3xl overflow-visible border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      
+      {/* Top Logo - Centered and Overlapping */}
+      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-zinc-950 rounded-2xl border border-white/10 p-2 shadow-xl flex items-center justify-center">
+        <img 
+          src="https://res.cloudinary.com/dzss2fubc/image/upload/v1768986198/Ascent_Matrix_LOGO_FINAL_-_ICON_2_rglzra.png" 
+          alt="Ascent Matrix Logo"
+          className="w-full h-full object-contain"
+        />
+      </div>
 
-            {/* Content Section */}
-            <div className="p-6 sm:p-8 space-y-6">
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black uppercase tracking-widest text-white">
-                  Ascent Matrix Prelude
-                </h3>
-                <p className="text-sm text-zinc-400 uppercase tracking-wider">
-                  Join the definitive quarterly engine for Indian Deep-Tech
-                </p>
-              </div>
+      {/* Close Button */}
+      <button
+        onClick={closePopup}
+        className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-white transition-colors"
+      >
+        <X className="w-5 h-5" />
+      </button>
 
-              {/* Register Now Button */}
-              <button
-                onClick={handleRegisterClick}
-                className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-pink-600 text-white px-6 py-4 rounded-xl font-black text-sm transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] uppercase tracking-widest"
-              >
-                Register Now
-              </button>
+      {/* Content Section */}
+      <div className="pt-16 pb-10 px-8 sm:px-10 space-y-8 text-center">
+        <div className="space-y-3">
+          <h3 className="text-3xl font-black uppercase tracking-tight text-white italic">
+            Ascent Matrix <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 block not-italic">Prelude</span>
+          </h3>
+          <p className="text-[11px] text-zinc-400 uppercase tracking-[0.3em] font-bold">
+            The definitive quarterly engine for Indian Deep-Tech
+          </p>
+        </div>
 
-              {/* Dismiss text */}
-              <p className="text-center text-xs text-zinc-500 uppercase tracking-wider">
-                Click the X button or outside to dismiss
-              </p>
-            </div>
+        {/* Info Cards */}
+        <div className="grid grid-cols-1 gap-3 py-2">
+          <div className="bg-white/5 border border-white/5 rounded-2xl p-4 transition-hover hover:bg-white/10">
+            <span className="block text-[10px] text-purple-400 uppercase tracking-widest mb-1 font-bold">Schedule</span>
+            <p className="text-white text-sm font-semibold">Jan 30, 2026 • 10:30 AM — 1:30 PM</p>
+          </div>
+          <div className="bg-white/5 border border-white/5 rounded-2xl p-4 transition-hover hover:bg-white/10">
+            <span className="block text-[10px] text-pink-400 uppercase tracking-widest mb-1 font-bold">Location</span>
+            <p className="text-white text-sm font-semibold">Chowdiah Memorial Hall</p>
           </div>
         </div>
-      )}
+
+        {/* Action Section */}
+        <div className="space-y-4">
+          <button
+            onClick={handleRegisterClick}
+            className="w-full bg-white text-black px-6 py-4 rounded-2xl font-black text-sm transition-all hover:bg-purple-500 hover:text-white uppercase tracking-widest shadow-lg active:scale-95"
+          >
+            Register Now
+          </button>
+
+          <p className="text-[10px] text-zinc-600 uppercase tracking-widest">
+            Click outside or <span className="text-zinc-400">ESC</span> to dismiss
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
       <main className="flex-grow pt-20">
         {children}
@@ -347,6 +364,17 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Protocols</Link></li>
                 <li><Link to="/terms-conditions" className="hover:text-white transition-colors">Terms of Delegate Engagement</Link></li>
                 <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund & Cancellation</Link></li>
+              </ul>
+            </div>
+
+            <div className="md:col-span-3 lg:col-span-2">
+              <h4 className="text-white font-black mb-10 uppercase tracking-[0.3em] text-[11px] flex items-center">
+                <span className="w-1 h-4 bg-blue-500 mr-3"></span>
+                Contact
+              </h4>
+              <ul className="space-y-5 text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                <li><a href="mailto:info@ssinphinite.org" className="hover:text-white transition-colors">info@ssinphinite.org</a></li>
+                <li><a href="tel:7026370266" className="hover:text-white transition-colors">+91 7026370266</a></li>
               </ul>
             </div>
           </div>
