@@ -95,7 +95,7 @@ export const Summit = () => {
     { name: "Dr. Sudheendra Koushik", title: "Chairperson, IEEE-TEMS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541578/sudheendra_koushik_jdkq1b.jpg" },
     { name: "Mr. Siddesh Math", title: "Corporate VP, AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
     { name: "Dr. Viswanathan Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/SESHAN_fjoxdm.jpg" },
-    { name: "Dr. S K Murthy", title: "Founder, SK Legal Solutions", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767554632/skm_texgc4.jpg" },
+    { name: "Mr. Om Prakash", title: "Founder, Oms Patent Services", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768986555/om_prakash_jhamz7.jpg" },
     { name: "Dr. Brinda Varma", title: "Founder, Aekam legal", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541551/brinda_abceq8.jpg" },
     { name: "Dr. Vijay Sarathy", title: "Head- Licensing and Analytics, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924780/VIJAY_SARATHY_bcrbxn.jpg" },
     { name: "Mr. Ashok Chandavarkar", title: "Designated partner, NurtuRise Advisors", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/Ashok_Chandavarkar_qmni6b.jpg" },
