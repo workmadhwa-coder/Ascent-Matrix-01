@@ -11,7 +11,7 @@ export const Hero = () => {
       {/* Video Background */}
       <video
         className="absolute inset-0 w-full h-full object-cover scale-105"
-        src="https://res.cloudinary.com/dzss2fubc/video/upload/v1767806170/7890_Particles_Particle_1920x1080_crm5c6.mp4"
+        src="https://res.cloudinary.com/dzss2fubc/video/upload/v1768984421/Purple_Connected_Dots_Lines_Free_Background_Videos_No_Copyright___All_Background_Videos_i34w61.mp4"
         autoPlay
         loop
         muted
@@ -28,7 +28,7 @@ export const Hero = () => {
         </h1>
 
         <p className="text-xl md:text-3xl text-purple-300 mb-10 font-medium max-w-3xl mx-auto">
-          Amplify Innovation & IP Generation for India&apos;s Deep-Tech
+          Amplifying Innovation & IP Generation efforts of India&apos;s Deep-Tech Startups
         </p>
 
         {/* CTA – Active Registration Button */}
