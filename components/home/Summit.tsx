@@ -91,7 +91,7 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 export const Summit = () => {
   const preludeSpeakers = [
     { name: "Dr. S R Mahadeva Prasanna", title: "Director, IIIT-Dharwad", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767538776/mahadev_prasanna_omuzez.jpg" },
-     { name: "R. Gopinath Rao, IEDS", title: "Dy. Director (Rtd.), MSME, Govt. of India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768923125/R.-Gopinath-Rao_cemuol.png" },
+     { name: "mr. R. Gopinath Rao, IEDS", title: "Dy. Director (Rtd.), MSME, Govt. of India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768923125/R.-Gopinath-Rao_cemuol.png" },
     { name: "Dr. Sudheendra Koushik", title: "Chairperson, IEEE-TEMS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541578/sudheendra_koushik_jdkq1b.jpg" },
     { name: "Mr. Siddesh Math", title: "Corporate VP, AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
     { name: "Dr. Viswanathan Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/SESHAN_fjoxdm.jpg" },
