@@ -383,7 +383,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="space-y-2">
                 <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.25em]">
-                  &copy; 2026 ASCENT MATRIX. DEVELOPED INDIA INITIATIVE.
+                  &copy; 2026 SS INPHINITE LLP. All rights reserved.
                 </p>
                 <div className="text-[10px] font-black uppercase tracking-[0.2em] flex flex-wrap gap-2">
                   <span className="text-zinc-600">DEVELOPERS:</span>
