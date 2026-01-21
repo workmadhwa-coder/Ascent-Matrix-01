@@ -33,7 +33,7 @@ export const Partners = () => {
       title: "ORGANIZING PARTNER",
       logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768059000/SKLS-Logo-15_vuzqhg.png",
       name: "satatham kritam legal from solutions llp",
-      color: "bg-[#d83474]"
+      color: "bg-[#8a3ffc]"
     }
   ];
 
@@ -70,40 +70,46 @@ export const Partners = () => {
     color: "bg-[#8a3ffc]"
   },
   {
+    title: "Realty PARTNER",
+    logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768993553/logo-white_ep9aub.png",
+    name: "Innomantra",
+    color: "bg-[#d83474]"
+  },
+  {
     title: "ECOSYSTEM PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/Startup_Tumkur_th3vti.jpg",
     name: "Startup Tumkur",
-    color: "bg-[#d83474]"
+    color: "bg-[#8a3ffc]"
   },
   {
     title: "AGRITECH PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058351/file_0000000055e871f68fad5a0f797da709_1_mkqxul.png",
     name: "Kalpakrushi",
-    color: "bg-[#8a3ffc]"
+    color: "bg-[#d83474]"
   },
   {
     title: "DIGITAL PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/MADHWA_INFOTECH_LOGO_FINAL_-_WHITE_pc6lwz.png",
     name: "Madhwa Infotech",
-    color: "bg-[#d83474]"
+    color: "bg-[#8a3ffc]"
   },
   {
     title: "SOFTWARE PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/viniwhite_vdvueg.png",
     name: "Vindira Softech",
-    color: "bg-[#8a3ffc]"
+    color: "bg-[#d83474]"
   },
   {
     title: "EXPERIENCE PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058352/Zodiac_Creations_LOGO_FINAL_-_WHITE_qumym5.png",
     name: "Zodiac",
-    color: "bg-[#d83474]"
+    color: "bg-[#8a3ffc]"
   },
   {
     title: "COMMUNITY PARTNER",
     logo: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768058350/Malleshwaram_Civic_Society_fyt58v.jpg",
     name: "M2",
-    color: "bg-[#8a3ffc]"
+    color: "bg-[#d83474]"
   }
 ];
 
