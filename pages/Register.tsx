@@ -7,7 +7,7 @@ const { useNavigate } = ReactRouterDOM as any;
 // Requirements-based constants
 const EVENT_ONLY_BASE = 999;
 const IDEATHON_BASE = 1599; // First person
-const IDEATHON_ADDITIONAL = 1499; // Every +1 person
+const IDEATHON_ADDITIONAL = 999; // Every +1 person
 
 const STALL_OPTIONS = {
   'None': 0,
@@ -72,6 +72,7 @@ const Register = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfError, setPdfError] = useState<string>('');
   const [modalContent, setModalContent] = useState<{ title: string, body: React.ReactNode } | null>(null);
 
   const registrationIdRef = useRef(`AM26-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
@@ -135,6 +136,7 @@ const Register = () => {
       if (!formData.problemStatement || formData.problemStatement.length > 250) newErrors.push('problemStatement');
       if (!formData.solution || formData.solution.length > 750) newErrors.push('solution');
       if (!pdfFile) newErrors.push('pdf');
+      if (pdfError) newErrors.push('pdf');
       if (!formData.ndaAccepted) newErrors.push('ndaAccepted');
       if (!formData.tcAccepted) newErrors.push('tcAccepted');
     } else if (step === 3) {
@@ -283,14 +285,14 @@ const Register = () => {
             <p><strong className="text-purple-400">1. Eligibility and Participation</strong></p>
             <ul className="list-disc pl-5 mt-1 space-y-1">
               <li>Participants must provide accurate and complete information during registration</li>
-              <li>Submissions must be original works of the Participant. Plagiarism or unauthorized use of third-party intellectual property will result in immediate disqualification</li>
+              <li>Submissions must be original works of the Participant. Plagiarism or unauthorized use of third-party intellectual property will result in immediate disqualification and participant is solely responsible for any claims pressed by any third parties and Ascent Matrix has no obligations and is indemnified against such claims.</li>
             </ul>
           </div>
 
           <div className="border-t border-zinc-700 pt-3">
             <p><strong className="text-purple-400">2. Submission Guidelines</strong></p>
             <ul className="list-disc pl-5 mt-1 space-y-1">
-              <li>All entries must be submitted in the requested format (1-2 page summary/problem statement)</li>
+              <li>All entries must be submitted in the requested format (1-2 page summary of problem statement and solution thereof)</li>
               <li>Late submissions beyond the specified deadline will not be considered for evaluation or prizes</li>
             </ul>
           </div>
@@ -549,12 +551,29 @@ const Register = () => {
                 <p className="text-zinc-500 text-xs font-bold mb-2 uppercase">Upload Idea Synopsis (PDF Max 5MB)</p>
                 <input 
                   type="file" accept=".pdf" className="hidden"
-                  onChange={(e) => setPdfFile(e.target.files?.[0] || null)}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file) {
+                      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+                      if (file.size > maxSizeInBytes) {
+                        setPdfError('Please upload the pdf below the 5MB');
+                        setPdfFile(null);
+                        e.target.value = '';
+                      } else {
+                        setPdfFile(file);
+                        setPdfError('');
+                      }
+                    } else {
+                      setPdfFile(null);
+                      setPdfError('');
+                    }
+                  }}
                 />
                 <div className="text-white text-xs py-2 bg-zinc-800 rounded-lg text-center font-bold">
                     {pdfFile ? `✓ ${pdfFile.name}` : "Click to select PDF"}
                 </div>
               </label>
+              {pdfError && <p className="text-red-400 text-xs font-bold mt-2">{pdfError}</p>}
             </div>
 
             <div className="space-y-4 pt-4">
