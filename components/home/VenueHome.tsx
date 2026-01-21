@@ -24,7 +24,7 @@ export const VenueHome = () => {
 
           <div className="space-y-8">
             <div className="inline-block px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/5 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] italic">
-              The Matrix Headquarters
+              ASCENT MATRIX PRELUDE VENUE
             </div>
             <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter leading-none">
               Chowdiah <br/> <span className="text-purple-600">Memorial Hall</span>
