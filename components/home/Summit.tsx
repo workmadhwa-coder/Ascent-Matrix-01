@@ -95,10 +95,9 @@ export const Summit = () => {
     { name: "Dr. Sudheendra Koushik", title: "Chairperson, IEEE-TEMS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541578/sudheendra_koushik_jdkq1b.jpg" },
     { name: "Mr. Siddesh Math", title: "Corporate VP, AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
     { name: "Dr. Viswanathan Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/SESHAN_fjoxdm.jpg" },
-    { name: "Mr. Om Prakash", title: "Founder, Oms Patent Services", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768986555/om_prakash_jhamz7.jpg" },
+    { name: "Mr. Vijay Singh", title: "IP Manager and Licensing, IPTEL - IISc", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1769323766/Untitled-design-80-qq60t15v5qdrkds52pm8ecggapv439ii6wbusdjafc_1_c3qrz5.png" },
     { name: "Dr. Brinda Varma", title: "Founder, Aekam legal", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541551/brinda_abceq8.jpg" },
     { name: "Dr. Vijay Sarathy", title: "Head- Licensing and Analytics, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924780/VIJAY_SARATHY_bcrbxn.jpg" },
-    { name: "Mr. Ashok Chandavarkar", title: "Designated partner, NurtuRise Advisors", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/Ashok_Chandavarkar_qmni6b.jpg" },
     { name: "Dr. S B Bhanu Prashanth", title: "Dean - FYB, BMS College of Engineering", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541537/bhanuprashanth_yvb2uu.jpg" }
   ];
 
@@ -176,7 +175,7 @@ export const Summit = () => {
                 { time: "11:30 - 11:45", event: "Session 1", speakers: "Mr. Om Prakash - Problem Discovery" },
                 { time: "11:45 - 12:00", event: "Session 2", speakers: "Dr. Brinda Varma - The IP Moat" },
                 { time: "12:00 - 12:15", event: "Session 3", speakers: "Dr. Vijay Sarathy - Commercialization" },
-                { time: "12:30 - 01:00", event: "Session 4", speakers: "Mr. Ashok Chandavarkar - Investor Focus" },
+                { time: "12:30 - 01:00", event: "Session 4", speakers: "Well known investors - Investor Focus" },
                 { time: "01:00 - 01:30", event: "Report Out", speakers: "Dr. S B Bhanu Prashanth - Invention Reports" }
               ].map((slot, i) => (
                 <div key={i} className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
@@ -199,11 +198,9 @@ export const Summit = () => {
           </div>
 
         <div className="flex justify-center">
-  <a href="#/register" className="w-full md:w-auto">
-    <button className="w-full md:w-auto px-12 py-5 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-black rounded-2xl transition-all shadow-[0_0_30px_rgba(219,39,119,0.4)] hover:scale-105 uppercase tracking-widest text-xs md:text-sm">
-      Register for Prelude
-    </button>
-  </a>
+  <button onClick={() => window.open('https://ascentmatrix.ssinphinite.com/#/register', '_blank')} className="w-full md:w-auto px-12 py-5 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-black rounded-2xl transition-all shadow-[0_0_30px_rgba(219,39,119,0.4)] hover:scale-105 uppercase tracking-widest text-xs md:text-sm">
+    Register for Prelude
+  </button>
 </div>
         </div>
       ),
