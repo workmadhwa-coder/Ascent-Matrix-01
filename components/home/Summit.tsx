@@ -95,7 +95,7 @@ export const Summit = () => {
     { name: "Dr. Sudheendra Koushik", title: "Chairperson, IEEE-TEMS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541578/sudheendra_koushik_jdkq1b.jpg" },
     { name: "Mr. Siddesh Math", title: "Corporate VP, AMD India", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541576/siddhesh_kth4e3.jpg" },
     { name: "Dr. Viswanathan Seshan", title: "Founder, ViSwan Consulting", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924779/SESHAN_fjoxdm.jpg" },
-    { name: "Mr. Vijay Singh", title: "IP Manager and Licensing, IPTEL - IISc", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1769323766/Untitled-design-80-qq60t15v5qdrkds52pm8ecggapv439ii6wbusdjafc_1_c3qrz5.png" },
+    { name: "Dr. Vijay Singh", title: "IP Manager and Licensing, IPTEL - IISc", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1769323766/Untitled-design-80-qq60t15v5qdrkds52pm8ecggapv439ii6wbusdjafc_1_c3qrz5.png" },
     { name: "Dr. Brinda Varma", title: "Founder, Aekam legal", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541551/brinda_abceq8.jpg" },
     { name: "Dr. Vijay Sarathy", title: "Head- Licensing and Analytics, SKLS", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1768924780/VIJAY_SARATHY_bcrbxn.jpg" },
     { name: "Dr. S B Bhanu Prashanth", title: "Dean - FYB, BMS College of Engineering", image: "https://res.cloudinary.com/dzss2fubc/image/upload/v1767541537/bhanuprashanth_yvb2uu.jpg" }
@@ -172,7 +172,7 @@ export const Summit = () => {
             <div className="space-y-2">
               {[
                 { time: "10:30 - 11:30", event: "Inaugural", speakers: "Dr. Mahadev Prasanna, Dr. Sudheendra Koushik, Mr. Siddesh Math, Dr. Seshan and Mr. Gopinath Rao" },
-                { time: "11:30 - 11:45", event: "Session 1", speakers: "Mr. Om Prakash - Problem Discovery" },
+                { time: "11:30 - 11:45", event: "Session 1", speakers: "Dr. Vijay Singh - Problem Discovery" },
                 { time: "11:45 - 12:00", event: "Session 2", speakers: "Dr. Brinda Varma - The IP Moat" },
                 { time: "12:00 - 12:15", event: "Session 3", speakers: "Dr. Vijay Sarathy - Commercialization" },
                 { time: "12:30 - 01:00", event: "Session 4", speakers: "A Well Known Investor - Investor Focus" },
