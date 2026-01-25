@@ -175,7 +175,7 @@ export const Summit = () => {
                 { time: "11:30 - 11:45", event: "Session 1", speakers: "Mr. Om Prakash - Problem Discovery" },
                 { time: "11:45 - 12:00", event: "Session 2", speakers: "Dr. Brinda Varma - The IP Moat" },
                 { time: "12:00 - 12:15", event: "Session 3", speakers: "Dr. Vijay Sarathy - Commercialization" },
-                { time: "12:30 - 01:00", event: "Session 4", speakers: "A Well known investors - Investor Focus" },
+                { time: "12:30 - 01:00", event: "Session 4", speakers: "A Well Known Investor - Investor Focus" },
                 { time: "01:00 - 01:30", event: "Report Out", speakers: "Dr. S B Bhanu Prashanth - Invention Reports" }
               ].map((slot, i) => (
                 <div key={i} className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
