@@ -74,6 +74,9 @@ const Register = () => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfError, setPdfError] = useState<string>('');
   const [modalContent, setModalContent] = useState<{ title: string, body: React.ReactNode } | null>(null);
+  const [promoCode, setPromoCode] = useState('');
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const [showPromoInput, setShowPromoInput] = useState(false);
 
   const registrationIdRef = useRef(`AM26-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`);
 
@@ -104,16 +107,31 @@ const Register = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
+  const handleApplyPromo = () => {
+    if (promoCode.toUpperCase() === 'AMAT50') {
+      setIsPromoApplied(true);
+      setShowPromoInput(false);
+    } else {
+      alert('Invalid promo code. Please try again.');
+      setPromoCode('');
+    }
+  };
+
   const calculateTotal = () => {
+    let ticketSubtotal = 0;
     if (isIdeathon) {
-      // First is 1599, rest are 1499
-      const totalTickets = IDEATHON_BASE + (Math.max(0, attendeeCount - 1) * IDEATHON_ADDITIONAL);
-      return totalTickets + STALL_OPTIONS[stallType];
+      // First is 1599, rest are 999
+      ticketSubtotal = IDEATHON_BASE + (Math.max(0, attendeeCount - 1) * IDEATHON_ADDITIONAL);
     } else {
       // Every person is 999
-      const totalTickets = attendeeCount * EVENT_ONLY_BASE;
-      return totalTickets + STALL_OPTIONS[stallType];
+      ticketSubtotal = attendeeCount * EVENT_ONLY_BASE;
     }
+    
+    // Apply discount only to tickets if promo is applied
+    const ticketCost = isPromoApplied ? ticketSubtotal * 0.5 : ticketSubtotal;
+    const stallCost = STALL_OPTIONS[stallType];
+    
+    return ticketCost + stallCost;
   };
 
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -369,7 +387,7 @@ const Register = () => {
         formDataToSend.append('purposes', JSON.stringify(formData.purposes));
         formDataToSend.append('qucInterest', formData.qucInterest);
 
-        const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'https://backend-3bat.onrender.com';
+        const backendUrl = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3000';
         const response = await fetch(`${backendUrl}/api/ticket/register`, { method: 'POST', body: formDataToSend });
 
         if (!response.ok) throw new Error('Failed to save registration');
@@ -695,10 +713,50 @@ const Register = () => {
                 </div>
                 <div className="p-8 bg-purple-600/5">
                     <h4 className="text-[10px] font-black uppercase text-pink-500 mb-4 tracking-widest">Financial Summary</h4>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center mb-4">
                         <span className="text-white font-black uppercase text-xl italic tracking-tighter">Grand Total</span>
                         <span className="text-4xl font-black text-purple-400 italic">₹{calculateTotal().toLocaleString()}</span>
                     </div>
+                    
+                    {/* Promo Code Section */}
+                    {!isPromoApplied ? (
+                      <div className="mt-6 pt-6 border-t border-white/10">
+                        {!showPromoInput ? (
+                          <button 
+                            onClick={() => setShowPromoInput(true)}
+                            className="text-purple-400 text-xs font-bold uppercase hover:text-purple-300 transition-colors"
+                          >
+                            + Have a promo code?
+                          </button>
+                        ) : (
+                          <div className="flex gap-2 items-center">
+                            <input 
+                              type="text" 
+                              placeholder="Enter promo code" 
+                              value={promoCode} 
+                              onChange={e => setPromoCode(e.target.value.toUpperCase())}
+                              className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-purple-500 flex-1"
+                            />
+                            <button 
+                              onClick={handleApplyPromo}
+                              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-bold text-xs uppercase transition-colors"
+                            >
+                              Apply
+                            </button>
+                            <button 
+                              onClick={() => { setShowPromoInput(false); setPromoCode(''); }}
+                              className="text-zinc-500 hover:text-zinc-400 font-bold text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="mt-6 pt-6 border-t border-white/10">
+                        <p className="text-green-400 text-xs font-bold">✓ ASCENT50 Applied (50% off tickets)</p>
+                      </div>
+                    )}
                 </div>
             </div>
             <div className="flex justify-between pt-10">
